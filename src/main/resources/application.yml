@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${YOUTUBE_DB_HOST}:${DB_PORT}/${DB_NAME}?${DB_PROPERTIES}
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${YOUTUBE_DB_NAME}?${DB_PROPERTIES}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
