@@ -13,7 +13,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     generate-ddl: true
     hibernate:
-      ddl-auto: ${DDL-AUTO}
+      ddl-auto: ${DDL_AUTO}
     show-sql: true
     properties:
       hibernate:
