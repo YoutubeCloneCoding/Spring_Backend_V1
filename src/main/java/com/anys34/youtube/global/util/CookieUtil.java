@@ -10,7 +10,6 @@ import java.util.Base64;
 public class CookieUtil {
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
         Cookie cookie = new Cookie(name, value);
-        cookie.setPath("https://localhost:3000/");
         cookie.setMaxAge(maxAge);
         response.addCookie(cookie);
     }
@@ -23,7 +22,6 @@ public class CookieUtil {
         for (Cookie cookie : cookies) {
             if (name.equals(cookie.getName())) {
                 cookie.setValue("");
-                cookie.setPath("https://localhost:3000/");
                 cookie.setMaxAge(0);
                 response.addCookie(cookie);
             }
