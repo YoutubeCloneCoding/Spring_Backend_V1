@@ -34,6 +34,12 @@ public class CookieUtil {
     }
 
     public static <T> T deserialize(Cookie cookie, Class<T> cls) {
+        if (cookie == null) {
+            // Handle the case when the cookie is null, e.g., by returning a default value or throwing an exception.
+            // For simplicity, I'll return null here, but you may want to customize this behavior.
+            return null;
+        }
+
         return cls.cast(
                 SerializationUtils.deserialize(
                         Base64.getUrlDecoder().decode(cookie.getValue())
