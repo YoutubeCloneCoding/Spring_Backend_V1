@@ -1,4 +1,4 @@
-package com.anys34.youtube.domain;
+package com.anys34.youtube.domain.RefreshToken;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

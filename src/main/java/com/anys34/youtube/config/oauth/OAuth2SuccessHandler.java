@@ -1,8 +1,8 @@
 package com.anys34.youtube.config.oauth;
 
 import com.anys34.youtube.config.jwt.TokenProvider;
-import com.anys34.youtube.domain.RefreshToken;
-import com.anys34.youtube.domain.User;
+import com.anys34.youtube.domain.RefreshToken.RefreshToken;
+import com.anys34.youtube.domain.User.User;
 import com.anys34.youtube.repository.RefreshTokenRepository;
 import com.anys34.youtube.service.UserService;
 import com.anys34.youtube.util.CookieUtil;

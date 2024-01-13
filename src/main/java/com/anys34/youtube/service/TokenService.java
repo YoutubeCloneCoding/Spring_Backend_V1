@@ -1,7 +1,7 @@
 package com.anys34.youtube.service;
 
 import com.anys34.youtube.config.jwt.TokenProvider;
-import com.anys34.youtube.domain.User;
+import com.anys34.youtube.domain.User.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

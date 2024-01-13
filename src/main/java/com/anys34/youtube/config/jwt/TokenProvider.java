@@ -1,6 +1,6 @@
 package com.anys34.youtube.config.jwt;
 
-import com.anys34.youtube.domain.User;
+import com.anys34.youtube.domain.User.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Header;
 import io.jsonwebtoken.Jwts;

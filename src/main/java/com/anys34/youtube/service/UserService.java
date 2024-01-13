@@ -1,6 +1,6 @@
 package com.anys34.youtube.service;
 
-import com.anys34.youtube.domain.User;
+import com.anys34.youtube.domain.User.User;
 import com.anys34.youtube.dto.AddUserRequest;
 import com.anys34.youtube.repository.UserRepository;
 import lombok.RequiredArgsConstructor;

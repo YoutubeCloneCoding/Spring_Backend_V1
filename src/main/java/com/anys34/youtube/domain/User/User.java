@@ -1,4 +1,4 @@
-package com.anys34.youtube.domain;
+package com.anys34.youtube.domain.User;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;

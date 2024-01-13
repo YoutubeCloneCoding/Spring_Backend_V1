@@ -1,6 +1,6 @@
 package com.anys34.youtube.repository;
 
-import com.anys34.youtube.domain.User;
+import com.anys34.youtube.domain.User.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
