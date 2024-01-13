@@ -12,9 +12,9 @@ public class CookieUtil {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
 //        cookie.setDomain("localhost");
-//        cookie.setHttpOnly(true);
+        cookie.setHttpOnly(true);
         cookie.setMaxAge(maxAge);
-//        cookie.setSecure(true);
+        cookie.setSecure(true);
         response.addCookie(cookie);
     }
 
