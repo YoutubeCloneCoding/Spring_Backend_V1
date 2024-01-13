@@ -15,6 +15,11 @@ public class CookieUtil {
         cookie.setHttpOnly(true);
         cookie.setMaxAge(maxAge);
         response.addCookie(cookie);
+        Cookie cookie2 = new Cookie(name, value);
+        cookie2.setPath("/");
+        cookie2.setHttpOnly(true);
+        cookie2.setMaxAge(maxAge);
+        response.addCookie(cookie2);
     }
 
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
