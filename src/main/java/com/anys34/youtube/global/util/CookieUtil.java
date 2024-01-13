@@ -38,6 +38,10 @@ public class CookieUtil {
     }
 
     public static <T> T deserialize(Cookie cookie, Class<T> cls) {
+        if (cookie == null || cookie.getValue() == null) {
+            return null; // Or handle the null case according to your requirements
+        }
+
         return cls.cast(
                 SerializationUtils.deserialize(
                         Base64.getUrlDecoder().decode(cookie.getValue())
