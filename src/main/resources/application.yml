@@ -1,11 +1,6 @@
 server:
   port: ${SERVER_PORT}
 
-  servlet:
-    session:
-      cookie:
-        same-site: none
-
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
