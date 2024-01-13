@@ -13,6 +13,7 @@ public class CookieUtil {
         cookie.setPath("/");
         cookie.setHttpOnly(true);
         cookie.setMaxAge(maxAge);
+        cookie.setSecure(true);
         response.addHeader("Set-Cookie", String.format("%s=%s; Path=/; Domain=localhost:3000; HttpOnly; Max-Age=%d", name, value, maxAge));
     }
 
