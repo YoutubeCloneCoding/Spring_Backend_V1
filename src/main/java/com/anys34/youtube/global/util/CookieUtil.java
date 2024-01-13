@@ -11,10 +11,11 @@ public class CookieUtil {
     public static void addCookie(HttpServletResponse response, String name, String value, int maxAge) {
         Cookie cookie = new Cookie(name, value);
         cookie.setPath("/");
-        cookie.setHttpOnly(true);
+//        cookie.setDomain("localhost");
+//        cookie.setHttpOnly(true);
         cookie.setMaxAge(maxAge);
-        cookie.setSecure(true);
-        response.addHeader("Set-Cookie", String.format("%s=%s; Path=/; Domain=localhost:3000; HttpOnly; Max-Age=%d", name, value, maxAge));
+//        cookie.setSecure(true);
+        response.addCookie(cookie);
     }
 
     public static void deleteCookie(HttpServletRequest request, HttpServletResponse response, String name) {
