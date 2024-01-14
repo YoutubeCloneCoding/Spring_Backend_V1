@@ -44,10 +44,11 @@ public class WebOAuthSecurityConfig {
 
         http.addFilterBefore(tokenAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
 
-        http.authorizeRequests()
+        http.cors().and().
+                authorizeRequests()
                 .requestMatchers("/api/token").permitAll()
                 .requestMatchers("/api/**").authenticated()
-//                .requestMatchers("/test/**").authenticated()
+                .requestMatchers("/test/**").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
