@@ -1,11 +1,11 @@
 package com.anys34.youtube.global.config;
 
+import com.anys34.youtube.domain.RefreshToken.domain.repository.RefreshTokenRepository;
+import com.anys34.youtube.domain.User.service.UserService;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
 import com.anys34.youtube.global.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.anys34.youtube.global.config.oauth.OAuth2SuccessHandler;
 import com.anys34.youtube.global.config.oauth.OAuth2UserCustomService;
-import com.anys34.youtube.domain.RefreshToken.domain.repository.RefreshTokenRepository;
-import com.anys34.youtube.domain.User.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,7 +13,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -87,10 +86,5 @@ public class WebOAuthSecurityConfig {
     @Bean
     public OAuth2AuthorizationRequestBasedOnCookieRepository oAuth2AuthorizationRequestBasedOnCookieRepository() {
         return new OAuth2AuthorizationRequestBasedOnCookieRepository();
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }
