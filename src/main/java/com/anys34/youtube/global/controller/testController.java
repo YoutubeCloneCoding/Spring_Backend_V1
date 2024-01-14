@@ -16,7 +16,7 @@ public class testController {
         return "home";
     }
 
-    @GetMapping("/test")
+    @GetMapping("/test/t")
     public String test(Principal principal) {
         log.info(principal.getName());
         return "test";
