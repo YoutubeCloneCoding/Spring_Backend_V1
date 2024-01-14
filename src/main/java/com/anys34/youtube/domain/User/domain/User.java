@@ -26,9 +26,6 @@ public class User implements UserDetails {
     @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password")
-    private String password;
-
     @Column(name = "nickname", unique = true)
     private String nickname;
 
@@ -36,9 +33,8 @@ public class User implements UserDetails {
     private List<Post> posts;
 
     @Builder
-    public User(String email, String password, String nickname) {
+    public User(String email, String nickname) {
         this.email = email;
-        this.password = password;
         this.nickname = nickname;
     }
 
@@ -60,7 +56,7 @@ public class User implements UserDetails {
 
     @Override
     public String getPassword() {
-        return password;
+        return null;
     }
 
     @Override
