@@ -3,6 +3,7 @@ package com.anys34.youtube.global.config;
 import com.anys34.youtube.domain.RefreshToken.domain.repository.RefreshTokenRepository;
 import com.anys34.youtube.domain.User.service.UserService;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
+import com.anys34.youtube.global.config.oauth.CustomAuthenticationEntryPoint;
 import com.anys34.youtube.global.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.anys34.youtube.global.config.oauth.OAuth2SuccessHandler;
 import com.anys34.youtube.global.config.oauth.OAuth2UserCustomService;
@@ -61,7 +62,8 @@ public class WebOAuthSecurityConfig {
 
         http.exceptionHandling()
                 .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
-                        new AntPathRequestMatcher("/api/**"));
+                        new AntPathRequestMatcher("/api/**"))
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
         return http.build();
     }
 
