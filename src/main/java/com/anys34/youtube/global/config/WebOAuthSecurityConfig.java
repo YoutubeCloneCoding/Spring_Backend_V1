@@ -52,16 +52,12 @@ public class WebOAuthSecurityConfig {
                 .anyRequest().permitAll();
 
         http.oauth2Login()
-                .loginPage("/login")
                 .authorizationEndpoint()
                 .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 .and()
                 .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint()
                 .userService(oAuth2UserCustomService);
-
-        http.logout()
-                .logoutSuccessUrl("/login");
 
         http.exceptionHandling()
                 .defaultAuthenticationEntryPointFor(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
