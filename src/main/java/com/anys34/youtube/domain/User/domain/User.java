@@ -1,5 +1,6 @@
 package com.anys34.youtube.domain.User.domain;
 
+import com.anys34.youtube.domain.Post.domain.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -19,7 +20,7 @@ import java.util.List;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false)
+    @Column(name = "user_id", updatable = false)
     private Long id;
 
     @Column(name = "email", nullable = false, unique = true)
@@ -30,6 +31,9 @@ public class User implements UserDetails {
 
     @Column(name = "nickname", unique = true)
     private String nickname;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Post> posts;
 
     @Builder
     public User(String email, String password, String nickname) {
