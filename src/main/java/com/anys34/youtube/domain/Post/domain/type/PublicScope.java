@@ -1,4 +1,4 @@
-package com.anys34.youtube.domain.Video.domain.type;
+package com.anys34.youtube.domain.Post.domain.type;
 
 public enum PublicScope {
     PUBLIC,
