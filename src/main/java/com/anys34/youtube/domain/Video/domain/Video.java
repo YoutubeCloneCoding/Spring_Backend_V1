@@ -1,9 +1,12 @@
-package com.anys34.youtube.domain.video.domain;
+package com.anys34.youtube.domain.Video.domain;
 
 import com.anys34.youtube.domain.Post.domain.Post;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Setter
 @NoArgsConstructor
 @Entity
 public class Video {
@@ -21,4 +24,10 @@ public class Video {
     @OneToOne
     @JoinColumn(name = "post_id")
     private Post post;
+
+    @Builder
+    public Video(String videoName, String videoPath) {
+        this.videoName = videoName;
+        this.videoPath = videoPath;
+    }
 }
