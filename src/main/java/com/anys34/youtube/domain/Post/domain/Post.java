@@ -6,9 +6,11 @@ import com.anys34.youtube.domain.User.domain.User;
 import com.anys34.youtube.domain.Video.domain.Video;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+@Getter
 @Setter
 @NoArgsConstructor
 @Entity

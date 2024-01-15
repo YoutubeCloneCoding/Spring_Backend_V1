@@ -1,6 +1,7 @@
 package com.anys34.youtube.domain.Video.service;
 
 import com.anys34.youtube.domain.Post.domain.Post;
+import com.anys34.youtube.domain.Post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.User.domain.User;
 import com.anys34.youtube.domain.Video.domain.Video;
 import com.anys34.youtube.domain.Video.domain.repository.VideoRepository;
@@ -20,9 +21,10 @@ import java.nio.file.StandardCopyOption;
 @Slf4j
 public class VideoService {
     private final VideoRepository videoRepository;
+    private final PostRepository postRepository;
     private final String originDir = "src/main/resources/save/";
 
-    public void upload(MultipartFile file, User user) {
+    public Long upload(MultipartFile file, User user) {
         String saveDir = makeDir(user.getEmail());
         String filePath = saveVideo(file, saveDir);
 
@@ -32,13 +34,15 @@ public class VideoService {
                 .build();
 
         Post post = Post.builder()
-                .title("")
-                .contents("")
                 .user(user)
                 .build();
 
         video.setPost(post);
         post.setVideo(video);
+
+        Long postId = postRepository.save(post).getId();
+        videoRepository.save(video);
+        return postId;
     }
 
     private String saveVideo(MultipartFile file, String saveDir) {
