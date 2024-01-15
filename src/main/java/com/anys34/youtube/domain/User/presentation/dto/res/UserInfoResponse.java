@@ -1,8 +1,10 @@
 package com.anys34.youtube.domain.User.presentation.dto.res;
 
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+@Getter
 @NoArgsConstructor
 public class UserInfoResponse {
     private String nickname;
