@@ -29,13 +29,17 @@ public class User implements UserDetails {
     @Column(name = "nickname")
     private String nickname;
 
+    @Column(name = "profile_image")
+    private String profileImg;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Post> posts;
 
     @Builder
-    public User(String email, String nickname) {
+    public User(String email, String nickname, String profileImg) {
         this.email = email;
         this.nickname = nickname;
+        this.profileImg = profileImg;
     }
 
     public User update(String nickname) {
