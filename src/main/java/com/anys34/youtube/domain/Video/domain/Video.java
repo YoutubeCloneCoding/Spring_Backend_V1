@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.UUID;
+
 @Setter
 @NoArgsConstructor
 @Entity
@@ -20,6 +22,9 @@ public class Video {
 
     @Column
     private String videoPath;
+
+    @Column
+    private UUID uuid;
 
     @OneToOne
     @JoinColumn(name = "post_id")
