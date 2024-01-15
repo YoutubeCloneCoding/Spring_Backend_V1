@@ -7,6 +7,7 @@ import com.anys34.youtube.domain.Video.domain.Video;
 import com.anys34.youtube.domain.Video.domain.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -15,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @RestController
@@ -25,12 +27,21 @@ public class VideoService {
     private final String originDir = "src/main/resources/save/";
 
     public Long upload(MultipartFile file, User user) {
+        UUID uuid = UUID.randomUUID();
+
         String saveDir = makeDir(user.getEmail());
-        String filePath = saveVideo(file, saveDir);
+        String saveName = uuid + "_" + file.getOriginalFilename();
+
+        try {
+            saveVideo(file.getBytes(), saveDir, saveName);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         Video video = Video.builder()
-                .videoName(file.getOriginalFilename())
-                .videoPath(filePath)
+                .videoName(saveName)
+                .videoPath(saveDir+saveName)
+                .uuid(uuid)
                 .build();
 
         Post post = Post.builder()
@@ -45,23 +56,17 @@ public class VideoService {
         return postId;
     }
 
-    private String saveVideo(MultipartFile file, String saveDir) {
-        String fileName = file.getOriginalFilename();
-        String filePath = saveDir + fileName;
-
+    private void saveVideo(byte[] fileData, String filePath, String saveName) {
+        File target = new File(filePath, saveName);
         try {
-            Path destination = Path.of(filePath);
-            Files.copy(file.getInputStream(), destination, StandardCopyOption.REPLACE_EXISTING);
-            return filePath;
+            FileCopyUtils.copy(fileData, target);
         } catch (IOException e) {
-            e.printStackTrace();
-            throw new IllegalArgumentException("Failed to save file: " + fileName);
+            throw new RuntimeException(e);
         }
     }
 
     private String makeDir(String email) {
         String saveDir = originDir + email + "/";
-        log.info(saveDir);
         File Folder = new File(saveDir);
 
         if (!Folder.exists()) {

@@ -31,8 +31,9 @@ public class Video {
     private Post post;
 
     @Builder
-    public Video(String videoName, String videoPath) {
+    public Video(String videoName, String videoPath, UUID uuid) {
         this.videoName = videoName;
         this.videoPath = videoPath;
+        this.uuid = uuid;
     }
 }
