@@ -66,7 +66,7 @@ public class VideoService {
     }
 
     private String makeDir(String email) {
-        String saveDir = originDir + email + "/";
+        String saveDir = originDir + email + "/video/";
         File Folder = new File(saveDir);
 
         if (!Folder.exists()) {
