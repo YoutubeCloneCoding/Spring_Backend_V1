@@ -18,7 +18,6 @@ import java.util.UUID;
 @Service
 public class PostService {
     private final PostRepository postRepository;
-    private final ThumbnailRepository thumbnailRepository;
     private final FileService fileService;
 
     public void update(PostSaveRequest postSaveRequest) {
@@ -49,6 +48,5 @@ public class PostService {
         thumbnail.setPost(post);
 
         postRepository.save(post);
-        thumbnailRepository.save(thumbnail);
     }
 }
