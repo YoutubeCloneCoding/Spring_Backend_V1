@@ -5,19 +5,29 @@ import com.anys34.youtube.domain.File.service.FileService;
 import com.anys34.youtube.domain.Post.domain.Post;
 import com.anys34.youtube.domain.Post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.Post.presentation.dto.req.PostSaveRequest;
+import com.anys34.youtube.domain.Post.presentation.dto.res.PostListResponse;
 import com.anys34.youtube.domain.Thumbnail.domain.Thumbnail;
 import com.anys34.youtube.domain.Thumbnail.domain.repository.ThumbnailRepository;
+import com.anys34.youtube.domain.User.domain.User;
+import com.anys34.youtube.domain.User.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class PostService {
     private final PostRepository postRepository;
+    private final ThumbnailRepository thumbnailRepository;
+    private final UserRepository userRepository;
     private final FileService fileService;
 
     public void update(PostSaveRequest postSaveRequest) {
@@ -40,7 +50,7 @@ public class PostService {
 
         Thumbnail thumbnail = Thumbnail.builder()
                 .thumbnailName(fileName)
-                .thumbnailPath(saveDir+fileName)
+                .thumbnailPath(saveDir)
                 .uuid(uuid)
                 .build();
 
@@ -48,5 +58,37 @@ public class PostService {
         thumbnail.setPost(post);
 
         postRepository.save(post);
+    }
+
+    public List<PostListResponse> getList() {
+        List<Post> posts = postRepository.findAllWithTitleNotNull();
+
+        return posts.stream()
+                .map(post -> {
+                    Thumbnail thumbnail = thumbnailRepository.findByPost(post);
+                    byte[] thumbnailFile = null;
+                    if (thumbnail != null) {
+                        String thumbnailPath = thumbnail.getThumbnailPath();
+                        String thumbnailName = thumbnail.getThumbnailName();
+                        Path filePath = Paths.get(thumbnailPath).resolve(thumbnailName);
+                        try {
+                            thumbnailFile = Files.readAllBytes(filePath);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+
+                    User user = userRepository.findByEmail(post.getUser().getEmail())
+                            .orElseThrow(() -> new IllegalArgumentException("Not Found User"));
+
+                    return PostListResponse.builder()
+                            .title(post.getTitle())
+                            .contents(post.getContents())
+                            .thumbnail(thumbnailFile)
+                            .nickname(user.getNickname())
+                            .profile(user.getProfileImg())
+                            .build();
+                })
+                .collect(Collectors.toList());
     }
 }

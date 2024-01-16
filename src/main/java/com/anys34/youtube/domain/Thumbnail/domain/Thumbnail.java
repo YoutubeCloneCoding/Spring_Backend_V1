@@ -3,12 +3,14 @@ package com.anys34.youtube.domain.Thumbnail.domain;
 import com.anys34.youtube.domain.Post.domain.Post;
 import jakarta.persistence.*;
 import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.UUID;
 
 @Setter
+@Getter
 @NoArgsConstructor
 @Entity
 public class Thumbnail {

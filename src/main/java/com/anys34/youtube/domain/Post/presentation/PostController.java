@@ -2,12 +2,17 @@ package com.anys34.youtube.domain.Post.presentation;
 
 import com.anys34.youtube.domain.Post.domain.type.PublicScope;
 import com.anys34.youtube.domain.Post.presentation.dto.req.PostSaveRequest;
+import com.anys34.youtube.domain.Post.presentation.dto.res.PostListResponse;
 import com.anys34.youtube.domain.Post.service.PostService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.security.Principal;
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -27,5 +32,12 @@ public class PostController {
                         .publicScope(publicScope)
                         .thumbnail(thumbnail)
                         .build());
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<PostListResponse>> list() {
+        List<PostListResponse> response = postService.getList();
+        return ResponseEntity.ok()
+                .body(response);
     }
 }

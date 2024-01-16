@@ -38,7 +38,7 @@ public class VideoService {
 
         Video video = Video.builder()
                 .videoName(fileName)
-                .videoPath(saveDir+fileName)
+                .videoPath(saveDir)
                 .uuid(uuid)
                 .build();
 
