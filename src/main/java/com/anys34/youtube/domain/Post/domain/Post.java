@@ -46,4 +46,8 @@ public class Post {
         this.publicScope = publicScope;
         this.user = user;
     }
+
+    public void update(String title, String contents, PublicScope publicScope) {
+
+    }
 }

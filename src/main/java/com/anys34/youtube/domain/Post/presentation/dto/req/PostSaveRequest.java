@@ -1,24 +1,26 @@
 package com.anys34.youtube.domain.Post.presentation.dto.req;
 
-import com.anys34.youtube.domain.Post.domain.Post;
 import com.anys34.youtube.domain.Post.domain.type.PublicScope;
-import com.anys34.youtube.domain.User.domain.User;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
+@Getter
 @NoArgsConstructor
 public class PostSaveRequest {
+    private Long id;
     private String title;
     private String contents;
     private PublicScope publicScope;
     private MultipartFile thumbnail;
 
-    public Post toEntity(User user) {
-        return Post.builder()
-                .title(title)
-                .contents(contents)
-                .publicScope(publicScope)
-                .user(user)
-                .build();
+    @Builder
+    public PostSaveRequest(Long id, String title, String contents, PublicScope publicScope, MultipartFile thumbnail) {
+        this.id = id;
+        this.title = title;
+        this.contents = contents;
+        this.publicScope = publicScope;
+        this.thumbnail = thumbnail;
     }
 }
