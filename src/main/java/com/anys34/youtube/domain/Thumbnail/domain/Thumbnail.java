@@ -4,9 +4,11 @@ import com.anys34.youtube.domain.Post.domain.Post;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
+@Setter
 @NoArgsConstructor
 @Entity
 public class Thumbnail {
