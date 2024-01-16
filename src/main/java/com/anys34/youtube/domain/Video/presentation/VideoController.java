@@ -2,8 +2,10 @@ package com.anys34.youtube.domain.Video.presentation;
 
 import com.anys34.youtube.domain.User.domain.User;
 import com.anys34.youtube.domain.User.service.UserService;
+import com.anys34.youtube.domain.Video.presentation.dto.res.ReturnInfoResponse;
 import com.anys34.youtube.domain.Video.service.VideoService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,8 +20,13 @@ public class VideoController {
     private final UserService userService;
 
     @PostMapping("/api/upload")
-    public Long upload(@RequestParam("file") MultipartFile file, Principal principal) {
+    public ResponseEntity<ReturnInfoResponse> upload(@RequestParam("file") MultipartFile file, Principal principal) {
         User user = userService.findByEmail(principal.getName());
-        return videoService.upload(file, user);
+        String fileName = file.getOriginalFilename();
+        return ResponseEntity.ok()
+                .body(ReturnInfoResponse.builder()
+                        .id(videoService.upload(file, user))
+                        .videoName(fileName.substring(0, fileName.indexOf(".")))
+                        .build());
     }
 }
