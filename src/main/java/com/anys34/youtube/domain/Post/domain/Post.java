@@ -26,7 +26,7 @@ public class Post {
     @Column
     private String contents;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private User user;
 
@@ -47,7 +47,10 @@ public class Post {
         this.user = user;
     }
 
-    public void update(String title, String contents, PublicScope publicScope) {
-
+    public void update(String title, String contents, PublicScope publicScope, Thumbnail thumbnail) {
+        this.title = title;
+        this.contents = contents;
+        this.publicScope = publicScope;
+        this.thumbnail = thumbnail;
     }
 }

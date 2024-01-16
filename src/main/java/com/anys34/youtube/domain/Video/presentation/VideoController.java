@@ -19,9 +19,7 @@ public class VideoController {
 
     @PostMapping("/api/upload")
     public Long upload(@RequestParam("file") MultipartFile file, Principal principal) {
-        videoService.makeRootDir();
         User user = userService.findByEmail(principal.getName());
         return videoService.upload(file, user);
     }
-
 }
