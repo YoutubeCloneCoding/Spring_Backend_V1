@@ -70,7 +70,6 @@ public class PostService {
 
                     return PostListResponse.builder()
                             .title(post.getTitle())
-                            .contents(post.getContents())
                             .thumbnail(thumbnailLink)
                             .nickname(user.getNickname())
                             .profile(user.getProfileImg())

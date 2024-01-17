@@ -8,15 +8,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class PostListResponse {
     private String title;
-    private String contents;
     private String thumbnail;
     private String profile;
     private String nickname;
 
     @Builder
-    public PostListResponse(String title, String contents, String thumbnail, String profile, String nickname) {
+    public PostListResponse(String title, String thumbnail, String profile, String nickname) {
         this.title = title;
-        this.contents = contents;
         this.thumbnail = thumbnail;
         this.profile = profile;
         this.nickname = nickname;
