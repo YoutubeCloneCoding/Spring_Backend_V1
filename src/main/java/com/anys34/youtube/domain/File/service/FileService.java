@@ -3,6 +3,7 @@ package com.anys34.youtube.domain.File.service;
 import com.anys34.youtube.domain.File.domain.type.FileType;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.http.MediaType;
@@ -19,7 +20,8 @@ import java.nio.file.Paths;
 @Service
 @Slf4j
 public class FileService {
-    private final String originDir = "src/main/resources/save/";
+    @Value("${spring.save.dir}")
+    private String originDir;
     public String makeDir(FileType type, String email) {
         String saveDir = originDir + email + "/";
         try {

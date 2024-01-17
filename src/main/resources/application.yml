@@ -19,8 +19,12 @@ spring:
       hibernate:
         format_sql: true
     open-in-view: false
+
   profiles:
     include: oauth
+
+  save:
+    dir: ${SAVE_DIR}
 
 jwt:
   issuer: anyeseong34@gmail.com
