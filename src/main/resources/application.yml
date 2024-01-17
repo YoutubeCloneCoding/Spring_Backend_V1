@@ -26,6 +26,9 @@ spring:
   save:
     dir: ${SAVE_DIR}
 
+  config:
+    import: classpath:/env.yml
+
 jwt:
   issuer: anyeseong34@gmail.com
   secret_key: anys34

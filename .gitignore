@@ -6,6 +6,7 @@ build/
 !**/src/test/**/build/
 
 save
+env.yml
 
 ### STS ###
 .apt_generated
