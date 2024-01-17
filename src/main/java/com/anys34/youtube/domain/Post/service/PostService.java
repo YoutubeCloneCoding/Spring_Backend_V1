@@ -15,9 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -66,17 +63,7 @@ public class PostService {
         return posts.stream()
                 .map(post -> {
                     Thumbnail thumbnail = thumbnailRepository.findByPost(post);
-                    byte[] thumbnailFile = null;
-                    if (thumbnail != null) {
-                        String thumbnailPath = thumbnail.getThumbnailPath();
-                        String thumbnailName = thumbnail.getThumbnailName();
-                        Path filePath = Paths.get(thumbnailPath).resolve(thumbnailName);
-                        try {
-                            thumbnailFile = Files.readAllBytes(filePath);
-                        } catch (IOException e) {
-                            throw new RuntimeException(e);
-                        }
-                    }
+                    String thumbnailFile = null;
 
                     User user = userRepository.findByEmail(post.getUser().getEmail())
                             .orElseThrow(() -> new IllegalArgumentException("Not Found User"));
