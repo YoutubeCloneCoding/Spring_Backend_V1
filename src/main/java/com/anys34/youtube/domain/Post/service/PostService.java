@@ -62,16 +62,16 @@ public class PostService {
 
         return posts.stream()
                 .map(post -> {
-                    Thumbnail thumbnail = thumbnailRepository.findByPost(post);
-                    String thumbnailFile = null;
-
                     User user = userRepository.findByEmail(post.getUser().getEmail())
                             .orElseThrow(() -> new IllegalArgumentException("Not Found User"));
+
+                    Thumbnail thumbnail = thumbnailRepository.findByPost(post);
+                    String thumbnailLink = String.format("https://youtube.anys34.com/%s?email=%s&type=%s", thumbnail.getThumbnailName(), user.getEmail(), FileType.image);
 
                     return PostListResponse.builder()
                             .title(post.getTitle())
                             .contents(post.getContents())
-                            .thumbnail(thumbnailFile)
+                            .thumbnail(thumbnailLink)
                             .nickname(user.getNickname())
                             .profile(user.getProfileImg())
                             .build();
