@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
-    @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL")
+    @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.publicScope = com.anys34.youtube.domain.Post.domain.type.PublicScope.PUBLIC")
     List<Post> findAllWithTitleNotNull();
 }
