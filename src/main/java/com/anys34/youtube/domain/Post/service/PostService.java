@@ -73,6 +73,7 @@ public class PostService {
                             .thumbnail(thumbnailLink)
                             .nickname(user.getNickname())
                             .profile(user.getProfileImg())
+                            .createdAt(post.getCreateDate())
                             .build();
                 })
                 .collect(Collectors.toList());
