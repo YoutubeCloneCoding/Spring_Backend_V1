@@ -37,6 +37,9 @@ public class VideoService {
         String saveDir = fileService.makeDir(FileType.video, user.getEmail());
         String fileName = uuid + "_" + file.getOriginalFilename();
 
+        String originName = file.getOriginalFilename();
+        String videoName = originName.substring(0, originName.indexOf('.'));
+
         try {
             fileService.saveFile(file.getBytes(), saveDir, fileName);
         } catch (IOException e) {
@@ -60,7 +63,7 @@ public class VideoService {
         videoRepository.save(video);
         return ReturnInfoResponse.builder()
                 .id(postId)
-                .videoName(file.getOriginalFilename().substring(0, fileName.indexOf(".")))
+                .videoName(videoName)
                 .originVideoLink(String.format("https://youtube.anys34.com/%s?email=%s&type=%s", fileName, user.getEmail(), FileType.video))
                 .videoLink(uuid)
                 .build();
