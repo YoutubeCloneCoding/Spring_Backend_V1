@@ -7,6 +7,7 @@ import com.anys34.youtube.domain.Post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.User.domain.User;
 import com.anys34.youtube.domain.Video.domain.Video;
 import com.anys34.youtube.domain.Video.domain.repository.VideoRepository;
+import com.anys34.youtube.domain.Video.presentation.dto.res.ReturnInfoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,7 @@ public class VideoService {
     private final PostRepository postRepository;
     private final FileService fileService;
 
-    public Long upload(MultipartFile file, User user) {
+    public ReturnInfoResponse upload(MultipartFile file, User user) {
         fileService.makeDir(null, null);
         UUID uuid = UUID.randomUUID();
 
@@ -51,6 +52,11 @@ public class VideoService {
 
         Long postId = postRepository.save(post).getId();
         videoRepository.save(video);
-        return postId;
+        return ReturnInfoResponse.builder()
+                .id(postId)
+                .videoName(file.getOriginalFilename().substring(0, fileName.indexOf(".")))
+                .originVideoLink(String.format("https://youtube.anys34.com/%s?email=%s&type=%s", fileName, user.getEmail(), FileType.video))
+                .videoLink(uuid.toString())
+                .build();
     }
 }
