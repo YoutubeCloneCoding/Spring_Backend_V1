@@ -11,16 +11,19 @@ import com.anys34.youtube.domain.Thumbnail.domain.repository.ThumbnailRepository
 import com.anys34.youtube.domain.User.domain.User;
 import com.anys34.youtube.domain.User.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
+@Slf4j
 public class PostService {
     private final PostRepository postRepository;
     private final ThumbnailRepository thumbnailRepository;
@@ -57,8 +60,23 @@ public class PostService {
         postRepository.save(post);
     }
 
-    public List<PostListResponse> getList() {
-        List<Post> posts = postRepository.findAllWithTitleNotNull();
+    public List<PostListResponse> getList(String email, Principal principal) {
+        List<Post> posts = null;
+        try {
+            if (principal == null)
+                posts = postRepository.findAllPublicList();
+            else {
+                    if (email.equals(principal.getName()))
+                        posts = postRepository.findByUserListAll(userRepository.findByEmail(principal.getName())
+                                .orElseThrow(() -> new IllegalArgumentException("Not Found User")));
+                    else
+                        posts = postRepository.findByUserList(userRepository.findByEmail(email)
+                                .orElseThrow(() -> new IllegalArgumentException("Not Found User")));
+            }
+        } catch (Exception e) {
+            posts = postRepository.findByUserList(userRepository.findByEmail(email)
+                    .orElseThrow(() -> new IllegalArgumentException("Not Found User")));
+        }
 
         return posts.stream()
                 .map(post -> {

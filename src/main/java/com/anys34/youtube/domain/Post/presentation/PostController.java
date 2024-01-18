@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.security.Principal;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -36,8 +37,15 @@ public class PostController {
 
     @GetMapping("/list")
     public ResponseEntity<List<PostListResponse>> list() {
-        List<PostListResponse> response = postService.getList();
+        List<PostListResponse> response = postService.getList(null, null);
         return ResponseEntity.ok()
                 .body(response);
+    }
+
+    @GetMapping("/userList")
+    public ResponseEntity<List<PostListResponse>> userList(@RequestParam("email") String email, Principal principal) {
+        List<PostListResponse> responses = postService.getList(email, principal);
+        return ResponseEntity.ok()
+                .body(responses);
     }
 }

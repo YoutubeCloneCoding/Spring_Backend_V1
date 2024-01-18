@@ -1,12 +1,20 @@
 package com.anys34.youtube.domain.Post.domain.repository;
 
 import com.anys34.youtube.domain.Post.domain.Post;
+import com.anys34.youtube.domain.User.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.publicScope = com.anys34.youtube.domain.Post.domain.type.PublicScope.PUBLIC")
-    List<Post> findAllWithTitleNotNull();
+    List<Post> findAllPublicList();
+
+    @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.user = :user")
+    List<Post> findByUserListAll(@Param("user") User user);
+
+    @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.user = :user AND p.publicScope = com.anys34.youtube.domain.Post.domain.type.PublicScope.PUBLIC")
+    List<Post> findByUserList(@Param("user") User user);
 }
