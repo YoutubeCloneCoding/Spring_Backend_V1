@@ -65,4 +65,33 @@ public class VideoService {
                 .videoLink(uuid)
                 .build();
     }
+
+    public VideoReturnResponse info(UUID video, String email, Principal principal) {
+        List<Post> posts = null;
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+        try {
+            if (principal.getName().equals(email)) { // 로그인한 유저와 찾는 게시물의 유저가 같은 경우(모든 게시물 찾기)
+                posts = postRepository.findByUserListAll(user);
+            } else { // 로그인은 했지만 찾는 게시물의 유저가 다른 경우(공개된 게시물만 찾기)
+                posts = postRepository.findByUserList(user);
+            }
+        } catch (NullPointerException e) { // 로그인이 되어있지 않은 경우(공개된 게시물만 찾기)
+            posts = postRepository.findByUserList(user);
+        }
+
+        return posts.stream()
+                .map(post -> {
+                    Video findVideo = videoRepository.findByUuidAndPost(video, post);
+
+                    return VideoReturnResponse.builder()
+                            .videoLink(String.format("http://localhost:8080/%s?email=%s&type=%s", findVideo.getVideoName(), email, FileType.video))
+                            .nickname(user.getNickname())
+                            .profile(user.getProfileImg())
+                            .title(post.getTitle())
+                            .contents(post.getContents())
+                            .build();
+                })
+                .toList().get(0);
+    }
 }
