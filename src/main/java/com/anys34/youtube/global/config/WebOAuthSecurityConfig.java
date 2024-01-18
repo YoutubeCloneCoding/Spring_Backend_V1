@@ -47,7 +47,7 @@ public class WebOAuthSecurityConfig {
 
         http.cors().and().
                 authorizeRequests()
-//                .requestMatchers("/api/token").permitAll()
+                .requestMatchers("/api/token").permitAll()
                 .requestMatchers("/api/**").authenticated()
                 .requestMatchers("/test/**").authenticated()
                 .anyRequest().permitAll();
