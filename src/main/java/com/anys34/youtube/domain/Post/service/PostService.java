@@ -10,6 +10,8 @@ import com.anys34.youtube.domain.Thumbnail.domain.Thumbnail;
 import com.anys34.youtube.domain.Thumbnail.domain.repository.ThumbnailRepository;
 import com.anys34.youtube.domain.User.domain.User;
 import com.anys34.youtube.domain.User.domain.repository.UserRepository;
+import com.anys34.youtube.domain.Video.domain.Video;
+import com.anys34.youtube.domain.Video.domain.repository.VideoRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -27,6 +29,7 @@ import java.util.stream.Collectors;
 public class PostService {
     private final PostRepository postRepository;
     private final ThumbnailRepository thumbnailRepository;
+    private final VideoRepository videoRepository;
     private final UserRepository userRepository;
     private final FileService fileService;
 
@@ -86,11 +89,15 @@ public class PostService {
                     Thumbnail thumbnail = thumbnailRepository.findByPost(post);
                     String thumbnailLink = String.format("https://youtube.anys34.com/%s?email=%s&type=%s", thumbnail.getThumbnailName(), user.getEmail(), FileType.image);
 
+                    Video video = videoRepository.findByPost(post);
+                    String link = video.getUuid().toString();
+
                     return PostListResponse.builder()
                             .title(post.getTitle())
                             .thumbnail(thumbnailLink)
                             .nickname(user.getNickname())
                             .profile(user.getProfileImg())
+                            .link(link)
                             .createdAt(post.getCreateDate())
                             .build();
                 })
