@@ -60,7 +60,7 @@ public class PostService {
                 .build();
 
         post.update(postSaveRequest.getTitle(), postSaveRequest.getContents(), postSaveRequest.getPublicScope(), thumbnail);
-        thumbnail.updatePost(post);
+        thumbnail.setPost(post);
 
         postRepository.save(post);
     }
