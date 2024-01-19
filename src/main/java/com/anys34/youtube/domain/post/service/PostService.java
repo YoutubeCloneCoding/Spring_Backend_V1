@@ -99,6 +99,7 @@ public class PostService {
                             .title(post.getTitle())
                             .thumbnail(thumbnailLink)
                             .nickname(user.getNickname())
+                            .email(user.getEmail())
                             .profile(user.getProfileImg())
                             .link(link)
                             .createdAt(post.getCreateDate())

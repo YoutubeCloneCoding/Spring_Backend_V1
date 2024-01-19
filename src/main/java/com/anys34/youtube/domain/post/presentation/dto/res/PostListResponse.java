@@ -13,15 +13,17 @@ public class PostListResponse {
     private String thumbnail;
     private String profile;
     private String nickname;
+    private String email;
     private String link;
     private LocalDateTime createdAt;
 
     @Builder
-    public PostListResponse(String title, String thumbnail, String profile, String nickname, String link, LocalDateTime createdAt) {
+    public PostListResponse(String title, String thumbnail, String profile, String nickname, String email, String link, LocalDateTime createdAt) {
         this.title = title;
         this.thumbnail = thumbnail;
         this.profile = profile;
         this.nickname = nickname;
+        this.email = email;
         this.link = link;
         this.createdAt = createdAt;
     }
