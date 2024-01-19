@@ -1,7 +1,9 @@
 package com.anys34.youtube.global.config;
 
 import com.anys34.youtube.domain.refreshToken.domain.repository.RefreshTokenRepository;
-import com.anys34.youtube.domain.user.service.UserService;
+import com.anys34.youtube.domain.user.presentation.dto.res.UserInfoResponse;
+import com.anys34.youtube.domain.user.service.LoginUserInfoService;
+import com.anys34.youtube.domain.user.service.UserInfoService;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
 import com.anys34.youtube.global.config.oauth.CustomAuthenticationEntryPoint;
 import com.anys34.youtube.global.config.oauth.OAuth2SuccessHandler;
@@ -24,7 +26,7 @@ public class WebOAuthSecurityConfig {
     private final OAuth2UserCustomService oAuth2UserCustomService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final UserService userService;
+    private final UserInfoService userInfoService;
 
     @Bean
     public WebSecurityCustomizer configure() {
@@ -70,7 +72,7 @@ public class WebOAuthSecurityConfig {
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
         return new OAuth2SuccessHandler(tokenProvider,
                 refreshTokenRepository,
-                userService
+                userInfoService
         );
     }
 

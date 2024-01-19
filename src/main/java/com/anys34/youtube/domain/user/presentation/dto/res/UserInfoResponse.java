@@ -1,6 +1,6 @@
 package com.anys34.youtube.domain.user.presentation.dto.res;
 
-import lombok.Builder;
+import com.anys34.youtube.domain.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,10 +11,9 @@ public class UserInfoResponse {
     private String email;
     private String profile;
 
-    @Builder
-    public UserInfoResponse(String nickname, String email, String profile) {
-        this.nickname = nickname;
-        this.email = email;
-        this.profile = profile;
+    public UserInfoResponse(User user) {
+        nickname = user.getNickname();
+        email = user.getEmail();
+        profile = user.getProfileImg();
     }
 }
