@@ -5,9 +5,11 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.UUID;
 
+@Setter
 @Getter
 @NoArgsConstructor
 @Entity
@@ -35,9 +37,5 @@ public class Thumbnail {
         this.thumbnailName = thumbnailName;
         this.thumbnailPath = thumbnailPath;
         this.uuid = uuid;
-    }
-
-    public void updatePost(Post post) {
-        this.post = post;
     }
 }

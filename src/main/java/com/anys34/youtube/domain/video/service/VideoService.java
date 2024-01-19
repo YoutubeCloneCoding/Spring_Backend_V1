@@ -58,8 +58,8 @@ public class VideoService {
                 .user(user)
                 .build();
 
-        video.updatePost(post);
-        post.updateVideo(video);
+        video.setPost(post);
+        post.setVideo(video);
 
         Long postId = postRepository.save(post).getId();
         videoRepository.save(video);
