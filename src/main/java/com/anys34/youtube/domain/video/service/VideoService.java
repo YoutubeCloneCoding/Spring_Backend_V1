@@ -10,6 +10,7 @@ import com.anys34.youtube.domain.video.domain.Video;
 import com.anys34.youtube.domain.video.domain.repository.VideoRepository;
 import com.anys34.youtube.domain.video.presentation.dto.res.ReturnInfoResponse;
 import com.anys34.youtube.domain.video.presentation.dto.res.VideoReturnResponse;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,7 @@ public class VideoService {
     private final UserRepository userRepository;
     private final FileService fileService;
 
+    @Transactional
     public ReturnInfoResponse upload(MultipartFile file, User user) {
         fileService.makeDir(null, null);
         UUID uuid = UUID.randomUUID();
@@ -68,6 +70,7 @@ public class VideoService {
                 .build();
     }
 
+    @Transactional
     public VideoReturnResponse info(UUID video, String email, Principal principal) {
         List<Post> posts = null;
         User user = userRepository.findByEmail(email)

@@ -12,6 +12,7 @@ import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.domain.repository.UserRepository;
 import com.anys34.youtube.domain.video.domain.Video;
 import com.anys34.youtube.domain.video.domain.repository.VideoRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final FileService fileService;
 
+    @Transactional
     public void update(PostSaveRequest postSaveRequest) {
         Post post = postRepository.findById(postSaveRequest.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Not Found Post"));
@@ -63,6 +65,7 @@ public class PostService {
         postRepository.save(post);
     }
 
+    @Transactional
     public List<PostListResponse> getList(String email, Principal principal) {
         List<Post> posts = null;
         try {
