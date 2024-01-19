@@ -4,7 +4,6 @@ import com.anys34.youtube.domain.refreshToken.domain.repository.RefreshTokenRepo
 import com.anys34.youtube.domain.user.service.UserService;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
 import com.anys34.youtube.global.config.oauth.CustomAuthenticationEntryPoint;
-import com.anys34.youtube.global.config.oauth.OAuth2AuthorizationRequestBasedOnCookieRepository;
 import com.anys34.youtube.global.config.oauth.OAuth2SuccessHandler;
 import com.anys34.youtube.global.config.oauth.OAuth2UserCustomService;
 import lombok.RequiredArgsConstructor;
@@ -54,7 +53,6 @@ public class WebOAuthSecurityConfig {
 
         http.oauth2Login()
                 .authorizationEndpoint()
-                .authorizationRequestRepository(oAuth2AuthorizationRequestBasedOnCookieRepository())
                 .and()
                 .successHandler(oAuth2SuccessHandler())
                 .userInfoEndpoint()
@@ -72,7 +70,6 @@ public class WebOAuthSecurityConfig {
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
         return new OAuth2SuccessHandler(tokenProvider,
                 refreshTokenRepository,
-                oAuth2AuthorizationRequestBasedOnCookieRepository(),
                 userService
         );
     }
@@ -80,10 +77,5 @@ public class WebOAuthSecurityConfig {
     @Bean
     public TokenAuthenticationFilter tokenAuthenticationFilter() {
         return new TokenAuthenticationFilter(tokenProvider);
-    }
-
-    @Bean
-    public OAuth2AuthorizationRequestBasedOnCookieRepository oAuth2AuthorizationRequestBasedOnCookieRepository() {
-        return new OAuth2AuthorizationRequestBasedOnCookieRepository();
     }
 }
