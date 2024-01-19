@@ -6,33 +6,29 @@ import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.domain.repository.UserRepository;
+import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.domain.video.domain.Video;
 import com.anys34.youtube.domain.video.domain.repository.VideoRepository;
 import com.anys34.youtube.domain.video.presentation.dto.res.ReturnInfoResponse;
-import com.anys34.youtube.domain.video.presentation.dto.res.VideoReturnResponse;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.security.Principal;
-import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-@Slf4j
-public class VideoService {
+public class VideoUploadService {
     private final VideoRepository videoRepository;
     private final PostRepository postRepository;
-    private final UserRepository userRepository;
     private final FileService fileService;
+    private final UserFacade userFacade;
 
     @Transactional
-    public ReturnInfoResponse upload(MultipartFile file, User user) {
+    public ReturnInfoResponse execute(MultipartFile file) {
+        User user = userFacade.getCurrentUser();
         fileService.makeDir(null, null);
         UUID uuid = UUID.randomUUID();
 
@@ -68,31 +64,6 @@ public class VideoService {
                 .videoName(videoName)
                 .originVideoLink(String.format("https://youtube.anys34.com/%s?email=%s&type=%s", fileName, user.getEmail(), FileType.video))
                 .videoLink(uuid)
-                .build();
-    }
-
-    @Transactional
-    public VideoReturnResponse info(UUID uuid, String email, Principal principal) {
-        Post post = null;
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
-        Video video = videoRepository.findByUuid(uuid);
-        try {
-            if (principal.getName().equals(email)) { // 로그인한 유저와 찾는 게시물의 유저가 같은 경우(모든 게시물 찾기)
-                post = postRepository.findByAllUserVideo(user, video);
-            } else { // 로그인은 했지만 찾는 게시물의 유저가 다른 경우(공개된 게시물만 찾기)
-                post = postRepository.findByPublicUserVideo(user, video);
-            }
-        } catch (NullPointerException e) { // 로그인이 되어있지 않은 경우(공개된 게시물만 찾기)
-            post = postRepository.findByPublicUserVideo(user, video);
-        }
-
-        return VideoReturnResponse.builder()
-                .videoLink(String.format("http://localhost:8080/%s?email=%s&type=%s", post.getVideo().getUuid(), email, FileType.video))
-                .nickname(user.getNickname())
-                .profile(user.getProfileImg())
-                .title(post.getTitle())
-                .contents(post.getContents())
                 .build();
     }
 }
