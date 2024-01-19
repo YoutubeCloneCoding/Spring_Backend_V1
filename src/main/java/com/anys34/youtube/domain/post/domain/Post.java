@@ -12,7 +12,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @Entity
 public class Post extends BaseTimeEntity {
@@ -53,5 +52,9 @@ public class Post extends BaseTimeEntity {
         this.contents = contents;
         this.publicScope = publicScope;
         this.thumbnail = thumbnail;
+    }
+
+    public void updateVideo(Video video) {
+        this.video = video;
     }
 }
