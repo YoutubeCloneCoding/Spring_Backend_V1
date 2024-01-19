@@ -5,11 +5,9 @@ import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.UUID;
 
-@Setter
 @Getter
 @NoArgsConstructor
 @Entity
@@ -37,5 +35,9 @@ public class Video {
         this.videoName = videoName;
         this.videoPath = videoPath;
         this.uuid = uuid;
+    }
+
+    public void updatePost(Post post) {
+        this.post = post;
     }
 }
