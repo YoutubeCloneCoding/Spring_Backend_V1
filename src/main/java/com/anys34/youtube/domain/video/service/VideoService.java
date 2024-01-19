@@ -101,6 +101,7 @@ public class VideoService {
                     return null;
                 })
                 .filter(Objects::isNull)
-                .toList().get(0);
+                .findFirst()
+                .orElse(null);
     }
 }
