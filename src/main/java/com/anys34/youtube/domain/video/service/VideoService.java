@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -88,15 +89,18 @@ public class VideoService {
         return posts.stream()
                 .map(post -> {
                     Video findVideo = videoRepository.findByUuidAndPost(video, post);
-
-                    return VideoReturnResponse.builder()
-                            .videoLink(String.format("http://localhost:8080/%s?email=%s&type=%s", findVideo.getVideoName(), email, FileType.video))
-                            .nickname(user.getNickname())
-                            .profile(user.getProfileImg())
-                            .title(post.getTitle())
-                            .contents(post.getContents())
-                            .build();
+                    if (findVideo != null) {
+                        return VideoReturnResponse.builder()
+                                .videoLink(String.format("http://localhost:8080/%s?email=%s&type=%s", findVideo.getVideoName(), email, FileType.video))
+                                .nickname(user.getNickname())
+                                .profile(user.getProfileImg())
+                                .title(post.getTitle())
+                                .contents(post.getContents())
+                                .build();
+                    }
+                    return null;
                 })
+                .filter(Objects::isNull)
                 .toList().get(0);
     }
 }
