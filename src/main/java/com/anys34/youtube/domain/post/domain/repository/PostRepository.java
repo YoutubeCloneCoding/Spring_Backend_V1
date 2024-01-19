@@ -22,6 +22,6 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.user = :user AND p.publicScope = com.anys34.youtube.domain.post.domain.type.PublicScope.PUBLIC")
     List<Post> findByUserList(@Param("user") User user);
 
-    @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.user = :user AND p.publicScope = com.anys34.youtube.domain.post.domain.type.PublicScope.PUBLIC AND p.video = :video")
+    @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.user = :user AND p.publicScope != com.anys34.youtube.domain.post.domain.type.PublicScope.PRIVATE AND p.video = :video")
     Post findByPublicUserVideo(@Param("user") User user, @Param("video") Video video);
 }
