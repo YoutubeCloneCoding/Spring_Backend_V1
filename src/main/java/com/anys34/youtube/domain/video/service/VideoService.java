@@ -72,36 +72,27 @@ public class VideoService {
     }
 
     @Transactional
-    public VideoReturnResponse info(UUID video, String email, Principal principal) {
-        List<Post> posts = null;
+    public VideoReturnResponse info(UUID uuid, String email, Principal principal) {
+        Post post = null;
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Unexpected user"));
+        Video video = videoRepository.findByUuid(uuid);
         try {
             if (principal.getName().equals(email)) { // 로그인한 유저와 찾는 게시물의 유저가 같은 경우(모든 게시물 찾기)
-                posts = postRepository.findByUserListAll(user);
+                post = postRepository.findByAllUserVideo(user, video);
             } else { // 로그인은 했지만 찾는 게시물의 유저가 다른 경우(공개된 게시물만 찾기)
-                posts = postRepository.findByUserList(user);
+                post = postRepository.findByPublicUserVideo(user, video);
             }
         } catch (NullPointerException e) { // 로그인이 되어있지 않은 경우(공개된 게시물만 찾기)
-            posts = postRepository.findByUserList(user);
+            post = postRepository.findByPublicUserVideo(user, video);
         }
 
-        return posts.stream()
-                .map(post -> {
-                    Video findVideo = videoRepository.findByUuidAndPost(video, post);
-                    if (findVideo != null) {
-                        return VideoReturnResponse.builder()
-                                .videoLink(String.format("http://localhost:8080/%s?email=%s&type=%s", findVideo.getVideoName(), email, FileType.video))
-                                .nickname(user.getNickname())
-                                .profile(user.getProfileImg())
-                                .title(post.getTitle())
-                                .contents(post.getContents())
-                                .build();
-                    }
-                    return null;
-                })
-                .filter(Objects::isNull)
-                .findFirst()
-                .orElse(null);
+        return VideoReturnResponse.builder()
+                .videoLink(String.format("http://localhost:8080/%s?email=%s&type=%s", post.getVideo().getUuid(), email, FileType.video))
+                .nickname(user.getNickname())
+                .profile(user.getProfileImg())
+                .title(post.getTitle())
+                .contents(post.getContents())
+                .build();
     }
 }

@@ -8,6 +8,5 @@ import java.util.UUID;
 
 public interface VideoRepository extends JpaRepository<Video, Long> {
     Video findByPost(Post post);
-
-    Video findByUuidAndPost(UUID uuid, Post post);
+    Video findByUuid(UUID uuid);
 }
