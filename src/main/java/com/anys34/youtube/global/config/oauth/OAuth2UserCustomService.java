@@ -1,7 +1,7 @@
 package com.anys34.youtube.global.config.oauth;
 
-import com.anys34.youtube.domain.User.domain.User;
-import com.anys34.youtube.domain.User.domain.repository.UserRepository;
+import com.anys34.youtube.domain.user.domain.User;
+import com.anys34.youtube.domain.user.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
