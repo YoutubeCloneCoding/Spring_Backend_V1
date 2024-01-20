@@ -1,7 +1,9 @@
 package com.anys34.youtube.domain.post.service;
 
 import com.anys34.youtube.domain.file.domain.type.FileType;
-import com.anys34.youtube.domain.file.service.FileService;
+import com.anys34.youtube.domain.file.service.ShowFileService;
+import com.anys34.youtube.domain.file.service.MakeDirectoryService;
+import com.anys34.youtube.domain.file.service.SaveFileService;
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.post.exception.PostNotFoundException;
@@ -19,23 +21,25 @@ import java.util.UUID;
 @Service
 public class PostUpdateService {
     private final PostRepository postRepository;
-    private final FileService fileService;
+    private final MakeDirectoryService makeDirectoryService;
+    private final SaveFileService saveFileService;
+    private final ShowFileService fileService;
 
     @Transactional
     public void execute(PostSaveRequest postSaveRequest) {
         Post post = postRepository.findById(postSaveRequest.getId())
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
-        fileService.makeDir(null, null);
+        makeDirectoryService.execute(null, null);
 
         UUID uuid = UUID.randomUUID();
         MultipartFile file = postSaveRequest.getThumbnail();
 
-        String saveDir = fileService.makeDir(FileType.image, post.getUser().getEmail());
+        String saveDir = makeDirectoryService.execute(FileType.image, post.getUser().getEmail());
         String fileName = uuid + "_" + file.getOriginalFilename();
 
         try {
-            fileService.saveFile(file.getBytes(), saveDir, fileName);
+            saveFileService.execute(file.getBytes(), saveDir, fileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

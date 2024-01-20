@@ -1,7 +1,8 @@
 package com.anys34.youtube.domain.file.presentation;
 
 import com.anys34.youtube.domain.file.domain.type.FileType;
-import com.anys34.youtube.domain.file.service.FileService;
+import com.anys34.youtube.domain.file.service.ShowFileService;
+import com.anys34.youtube.domain.file.service.GetContentType;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
@@ -16,21 +17,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class FileController {
-    @Value("${spring.save.dir}")
-    private String originDir;
-
-    private final FileService fileService;
+    private final ShowFileService showFileService;
+    private final GetContentType getContentType;
 
     @GetMapping("/{fileName}")
     public ResponseEntity<Resource> showFile(@RequestParam(value = "email") String email,
                                              @RequestParam(value = "type") FileType fileType,
                                              @PathVariable String fileName) {
-        String dirPath = originDir + email + "/" + fileType;
-        Resource resource = fileService.showFile(dirPath, fileName);
+        Resource resource = showFileService.execute(email, fileType, fileName);
 
         HttpHeaders headers = new HttpHeaders();
         headers.add(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=" + fileName);
-        String contentType = fileService.getContentType(fileName);
+        String contentType = getContentType.execute(fileName);
 
         return ResponseEntity.ok()
                 .headers(headers)
