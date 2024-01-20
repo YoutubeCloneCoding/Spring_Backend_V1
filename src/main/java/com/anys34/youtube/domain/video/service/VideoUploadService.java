@@ -1,7 +1,6 @@
 package com.anys34.youtube.domain.video.service;
 
 import com.anys34.youtube.domain.file.domain.type.FileType;
-import com.anys34.youtube.domain.file.service.ShowFileService;
 import com.anys34.youtube.domain.file.service.MakeDirectoryService;
 import com.anys34.youtube.domain.file.service.SaveFileService;
 import com.anys34.youtube.domain.post.domain.Post;
@@ -16,7 +15,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -26,7 +24,6 @@ public class VideoUploadService {
     private final PostRepository postRepository;
     private final MakeDirectoryService makeDirectoryService;
     private final SaveFileService saveFileService;
-    private final ShowFileService fileService;
     private final UserFacade userFacade;
 
     @Transactional

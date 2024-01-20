@@ -7,6 +7,7 @@ import com.anys34.youtube.domain.user.service.UserIdFindService;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Duration;
 
@@ -17,6 +18,7 @@ public class CreateNewAccessToken {
     private final UserIdFindService userIdFindService;
     private final TokenProvider tokenProvider;
 
+    @Transactional(readOnly = true)
     public String execute(String refreshToken) {
         if(!tokenProvider.validToken(refreshToken))
             throw UnexpectedTokenException.EXCEPTION;
