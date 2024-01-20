@@ -44,7 +44,7 @@ public class VideoInfoService {
         }
 
         return VideoReturnResponse.builder()
-                .videoLink(String.format("http://localhost:8080/%s?email=%s&type=%s", post.getVideo().getUuid(), email, FileType.video))
+                .videoLink(String.format("https://youtube.anys34.com/%s?email=%s&type=%s", post.getVideo().getVideoName(), email, FileType.video))
                 .nickname(user.getNickname())
                 .profile(user.getProfileImg())
                 .title(post.getTitle())
