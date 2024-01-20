@@ -1,5 +1,6 @@
 package com.anys34.youtube.domain.file.service;
 
+import com.anys34.youtube.domain.file.exception.ContentTypeNotFoundException;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class GetContentType {
             case "mp4":
                 return "video/mp4";
             default:
-                return MediaType.APPLICATION_OCTET_STREAM_VALUE;
+                throw ContentTypeNotFoundException.EXCEPTION;
         }
     }
 }
