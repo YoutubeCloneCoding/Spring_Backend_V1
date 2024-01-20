@@ -1,10 +1,12 @@
 package com.anys34.youtube.global.config.oauth;
 
+import com.anys34.youtube.domain.user.presentation.dto.res.UserInfoResponse;
+import com.anys34.youtube.domain.user.service.UserInfoService;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
 import com.anys34.youtube.domain.refreshToken.domain.RefreshToken;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.refreshToken.domain.repository.RefreshTokenRepository;
-import com.anys34.youtube.domain.user.service.UserService;
+import com.anys34.youtube.domain.user.service.LoginUserInfoService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -26,12 +28,12 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
 
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final UserService userService;
+    private final UserInfoService userInfoService;
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
-        User user = userService.findByEmail((String) oAuth2User.getAttributes().get("email"));
+        User user = userInfoService.execute((String) oAuth2User.getAttributes().get("email"));
         String refreshToken = tokenProvider.generateToken(user, REFRESH_TOKEN_DURATION);
         saveRefreshToken(user.getId(), refreshToken);
         String accessToken = tokenProvider.generateToken(user, ACCESS_TOKEN_DURATION);
