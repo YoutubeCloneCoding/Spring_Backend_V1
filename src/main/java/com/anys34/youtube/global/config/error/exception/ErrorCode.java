@@ -12,6 +12,7 @@ public enum ErrorCode {
     INVALID_REFRESH_TOKEN(401, "Invalid Refresh Token"),
 
     USER_NOT_FOUND(404, "User Not Found"),
+    POST_NOT_FOUND(404, "Post Not Found"),
     REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
 
     INTERNAL_SERVER_ERROR(500, "Internal Server Error");
