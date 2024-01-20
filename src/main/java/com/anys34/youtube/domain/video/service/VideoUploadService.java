@@ -41,11 +41,7 @@ public class VideoUploadService {
         String originName = file.getOriginalFilename();
         String videoName = originName.substring(0, originName.indexOf('.'));
 
-        try {
-            saveFileService.execute(file.getBytes(), saveDir, fileName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        saveFileService.execute(file, saveDir, fileName);
 
         Video video = Video.builder()
                 .videoName(fileName)

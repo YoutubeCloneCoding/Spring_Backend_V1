@@ -1,7 +1,6 @@
 package com.anys34.youtube.domain.post.service;
 
 import com.anys34.youtube.domain.file.domain.type.FileType;
-import com.anys34.youtube.domain.file.service.ShowFileService;
 import com.anys34.youtube.domain.file.service.MakeDirectoryService;
 import com.anys34.youtube.domain.file.service.SaveFileService;
 import com.anys34.youtube.domain.post.domain.Post;
@@ -14,7 +13,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -23,7 +21,6 @@ public class PostUpdateService {
     private final PostRepository postRepository;
     private final MakeDirectoryService makeDirectoryService;
     private final SaveFileService saveFileService;
-    private final ShowFileService fileService;
 
     @Transactional
     public void execute(PostSaveRequest postSaveRequest) {
@@ -38,11 +35,7 @@ public class PostUpdateService {
         String saveDir = makeDirectoryService.execute(FileType.image, post.getUser().getEmail());
         String fileName = uuid + "_" + file.getOriginalFilename();
 
-        try {
-            saveFileService.execute(file.getBytes(), saveDir, fileName);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        saveFileService.execute(file, saveDir, fileName);
 
         Thumbnail thumbnail = Thumbnail.builder()
                 .thumbnailName(fileName)
