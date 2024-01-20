@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum ErrorCode {
 
+    UNEXPECTED_TOKEN(400, "Unexpected token"),
     EXPIRED_JWT(401, "Expired Jwt"),
     INVALID_JWT(401, "Invalid Jwt"),
     INVALID_REFRESH_TOKEN(401, "Invalid Refresh Token"),
