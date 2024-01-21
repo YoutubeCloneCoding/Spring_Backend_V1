@@ -28,9 +28,6 @@ spring:
   profiles:
     include: oauth
 
-  save:
-    dir: ${SAVE_DIR}
-
   config:
     import: classpath:/env.yml
 
