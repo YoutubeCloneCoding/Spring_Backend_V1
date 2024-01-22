@@ -29,12 +29,6 @@ public class WebOAuthSecurityConfig {
     private final UserInfoService userInfoService;
 
     @Bean
-    public WebSecurityCustomizer configure() {
-        return (web) -> web.ignoring()
-                .requestMatchers("/img/**", "/css/**", "/js/**");
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
                 .httpBasic().disable()
@@ -50,7 +44,6 @@ public class WebOAuthSecurityConfig {
                 authorizeRequests()
                 .requestMatchers("/api/token").permitAll()
                 .requestMatchers("/api/**").authenticated()
-                .requestMatchers("/test/**").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
@@ -66,7 +59,6 @@ public class WebOAuthSecurityConfig {
                 .authenticationEntryPoint(new CustomAuthenticationEntryPoint());
         return http.build();
     }
-
 
     @Bean
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
