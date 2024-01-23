@@ -34,7 +34,7 @@ public class PostListService {
     @Transactional
     public List<PostListResponse> getList(String email) {
         List<Post> posts = null;
-        if (!userFacade.isLogin())
+        if (userFacade.isLogin())
             posts = postRepository.findAllPublicList()
                     .orElseThrow(() -> PostNotFoundException.EXCEPTION);
         else {
