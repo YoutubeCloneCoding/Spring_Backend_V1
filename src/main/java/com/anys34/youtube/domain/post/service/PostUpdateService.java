@@ -1,6 +1,6 @@
 package com.anys34.youtube.domain.post.service;
 
-import com.anys34.youtube.domain.file.domain.type.FileType;
+import com.anys34.youtube.domain.post.domain.type.FileType;
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.post.exception.PostNotFoundException;

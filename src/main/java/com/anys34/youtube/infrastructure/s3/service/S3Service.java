@@ -4,7 +4,7 @@ import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.anys34.youtube.domain.file.domain.type.FileType;
+import com.anys34.youtube.domain.post.domain.type.FileType;
 import com.anys34.youtube.infrastructure.s3.config.properties.S3Properties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

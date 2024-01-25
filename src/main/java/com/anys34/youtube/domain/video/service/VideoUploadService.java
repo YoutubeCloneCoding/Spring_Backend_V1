@@ -1,6 +1,6 @@
 package com.anys34.youtube.domain.video.service;
 
-import com.anys34.youtube.domain.file.domain.type.FileType;
+import com.anys34.youtube.domain.post.domain.type.FileType;
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.user.domain.User;
