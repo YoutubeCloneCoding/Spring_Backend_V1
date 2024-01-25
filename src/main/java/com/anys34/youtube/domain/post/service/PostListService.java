@@ -40,19 +40,16 @@ public class PostListService {
         else {
             User user = userFacade.getCurrentUser();
             if (email.equals(user.getEmail()))
-                posts = postRepository.findByUserListAll(userRepository.findByEmail(user.getEmail())
-                        .orElseThrow(() -> UserNotFoundException.EXCEPTION))
+                posts = postRepository.findByUserListAll(userFacade.getUserByEmail(user.getEmail()))
                         .orElseThrow(() -> PostNotFoundException.EXCEPTION);
             else
-                posts = postRepository.findByUserList(userRepository.findByEmail(email)
-                        .orElseThrow(() -> UserNotFoundException.EXCEPTION))
+                posts = postRepository.findByUserList(userFacade.getUserByEmail(email))
                         .orElseThrow(() -> PostNotFoundException.EXCEPTION);
         }
 
         return posts.stream()
                 .map(post -> {
-                    User user = userRepository.findByEmail(post.getUser().getEmail())
-                            .orElseThrow(() -> UserNotFoundException.EXCEPTION);
+                    User user = userFacade.getUserByEmail(post.getUser().getEmail());
 
                     Thumbnail thumbnail = thumbnailRepository.findByPost(post)
                             .orElseThrow(() -> PostNotFoundException.EXCEPTION);
