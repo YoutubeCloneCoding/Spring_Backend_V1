@@ -1,9 +1,7 @@
 package com.anys34.youtube.global.config;
 
 import com.anys34.youtube.domain.refreshToken.domain.repository.RefreshTokenRepository;
-import com.anys34.youtube.domain.user.presentation.dto.res.UserInfoResponse;
-import com.anys34.youtube.domain.user.service.LoginUserInfoService;
-import com.anys34.youtube.domain.user.service.UserInfoService;
+import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
 import com.anys34.youtube.global.config.oauth.CustomAuthenticationEntryPoint;
 import com.anys34.youtube.global.config.oauth.OAuth2SuccessHandler;
@@ -13,7 +11,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
@@ -26,7 +23,7 @@ public class WebOAuthSecurityConfig {
     private final OAuth2UserCustomService oAuth2UserCustomService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-    private final UserInfoService userInfoService;
+    private final UserFacade userFacade;
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -64,7 +61,7 @@ public class WebOAuthSecurityConfig {
     public OAuth2SuccessHandler oAuth2SuccessHandler() {
         return new OAuth2SuccessHandler(tokenProvider,
                 refreshTokenRepository,
-                userInfoService
+                userFacade
         );
     }
 
