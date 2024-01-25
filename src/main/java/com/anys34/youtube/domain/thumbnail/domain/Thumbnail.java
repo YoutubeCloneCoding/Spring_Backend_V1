@@ -19,10 +19,7 @@ public class Thumbnail {
     private Long id;
 
     @Column
-    private String thumbnailName;
-
-    @Column
-    private String thumbnailPath;
+    private String thumbnailUrl;
 
     @Column
     private UUID uuid;
@@ -32,9 +29,8 @@ public class Thumbnail {
     private Post post;
 
     @Builder
-    public Thumbnail(String thumbnailName, String thumbnailPath, UUID uuid) {
-        this.thumbnailName = thumbnailName;
-        this.thumbnailPath = thumbnailPath;
+    public Thumbnail(String thumbnailUrl, UUID uuid) {
+        this.thumbnailUrl = thumbnailUrl;
         this.uuid = uuid;
     }
 

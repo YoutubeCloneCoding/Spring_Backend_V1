@@ -10,15 +10,13 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ReturnInfoResponse {
     private Long id;
-    private String videoName;
-    private String originVideoLink;
+    private String videoUrl;
     private UUID videoLink;
 
     @Builder
-    public ReturnInfoResponse(Long id, String videoName, String originVideoLink, UUID videoLink) {
+    public ReturnInfoResponse(Long id, String videoUrl, UUID videoLink) {
         this.id = id;
-        this.videoName = videoName;
-        this.originVideoLink = originVideoLink;
+        this.videoUrl = videoUrl;
         this.videoLink = videoLink;
     }
 }
