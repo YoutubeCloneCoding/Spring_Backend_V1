@@ -25,6 +25,6 @@ public class UserFacade {
 
     public Boolean isLogin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        return authentication != null && authentication.isAuthenticated();
+        return authentication.isAuthenticated();
     }
 }
