@@ -18,11 +18,11 @@ public interface PostRepository extends JpaRepository<Post, Long> {
     Optional<List<Post>> findByUserListAll(@Param("user") User user);
 
     @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.user = :user AND p.video = :video")
-    Post findByAllUserVideo(@Param("user") User user, @Param("video") Video video);
+    Optional<Post> findByAllUserVideo(@Param("user") User user, @Param("video") Video video);
 
     @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.user = :user AND p.publicScope = com.anys34.youtube.domain.post.domain.type.PublicScope.PUBLIC")
     Optional<List<Post>> findByUserList(@Param("user") User user);
 
     @Query("SELECT p FROM Post p WHERE p.title IS NOT NULL AND p.user = :user AND p.publicScope != com.anys34.youtube.domain.post.domain.type.PublicScope.PRIVATE AND p.video = :video")
-    Post findByPublicUserVideo(@Param("user") User user, @Param("video") Video video);
+    Optional<Post> findByPublicUserVideo(@Param("user") User user, @Param("video") Video video);
 }

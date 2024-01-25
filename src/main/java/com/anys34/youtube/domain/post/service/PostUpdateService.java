@@ -1,13 +1,15 @@
 package com.anys34.youtube.domain.post.service;
 
-import com.anys34.youtube.domain.file.domain.type.FileType;
-import com.anys34.youtube.domain.file.service.MakeDirectoryService;
-import com.anys34.youtube.domain.file.service.SaveFileService;
+import com.anys34.youtube.domain.post.domain.type.FileType;
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.post.exception.PostNotFoundException;
+import com.anys34.youtube.domain.post.exception.UserNotMatchException;
 import com.anys34.youtube.domain.post.presentation.dto.req.PostSaveRequest;
 import com.anys34.youtube.domain.thumbnail.domain.Thumbnail;
+import com.anys34.youtube.domain.user.domain.User;
+import com.anys34.youtube.domain.user.facade.UserFacade;
+import com.anys34.youtube.infrastructure.s3.service.S3Service;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,27 +21,26 @@ import java.util.UUID;
 @Service
 public class PostUpdateService {
     private final PostRepository postRepository;
-    private final MakeDirectoryService makeDirectoryService;
-    private final SaveFileService saveFileService;
+    private final UserFacade userFacade;
+    private final S3Service s3Service;
 
     @Transactional
     public void execute(PostSaveRequest postSaveRequest) {
         Post post = postRepository.findById(postSaveRequest.getId())
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+        User user = userFacade.getCurrentUser();
 
-        makeDirectoryService.execute(null, null);
+        if (user != post.getUser())
+            throw UserNotMatchException.EXCEPTION;
 
         UUID uuid = UUID.randomUUID();
         MultipartFile file = postSaveRequest.getThumbnail();
 
-        String saveDir = makeDirectoryService.execute(FileType.image, post.getUser().getEmail());
-        String fileName = uuid + "_" + file.getOriginalFilename();
+        String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.image, uuid);
 
-        saveFileService.execute(file, saveDir, fileName);
 
         Thumbnail thumbnail = Thumbnail.builder()
-                .thumbnailName(fileName)
-                .thumbnailPath(saveDir)
+                .thumbnailUrl(fileUrl)
                 .uuid(uuid)
                 .build();
 

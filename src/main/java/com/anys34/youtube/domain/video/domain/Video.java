@@ -19,10 +19,7 @@ public class Video {
     private Long id;
 
     @Column
-    private String videoName;
-
-    @Column
-    private String videoPath;
+    private String videoUrl;
 
     @Column
     private UUID uuid;
@@ -32,9 +29,8 @@ public class Video {
     private Post post;
 
     @Builder
-    public Video(String videoName, String videoPath, UUID uuid) {
-        this.videoName = videoName;
-        this.videoPath = videoPath;
+    public Video(String videoUrl, UUID uuid) {
+        this.videoUrl = videoUrl;
         this.uuid = uuid;
     }
 

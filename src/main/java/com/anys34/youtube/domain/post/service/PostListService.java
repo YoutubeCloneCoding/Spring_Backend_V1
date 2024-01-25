@@ -1,6 +1,5 @@
 package com.anys34.youtube.domain.post.service;
 
-import com.anys34.youtube.domain.file.domain.type.FileType;
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
 import com.anys34.youtube.domain.post.exception.PostNotFoundException;
@@ -34,7 +33,8 @@ public class PostListService {
     @Transactional
     public List<PostListResponse> getList(String email) {
         List<Post> posts = null;
-        if (userFacade.isLogin())
+        System.out.println(userFacade.isLogin());
+        if (!userFacade.isLogin() || email == null)
             posts = postRepository.findAllPublicList()
                     .orElseThrow(() -> PostNotFoundException.EXCEPTION);
         else {
@@ -57,9 +57,6 @@ public class PostListService {
                     Thumbnail thumbnail = thumbnailRepository.findByPost(post)
                             .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
-
-                    String thumbnailLink = String.format("https://youtube.anys34.com/%s?email=%s&type=%s", thumbnail.getThumbnailName(), user.getEmail(), FileType.image);
-
                     Video video = videoRepository.findByPost(post)
                             .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
@@ -67,7 +64,7 @@ public class PostListService {
 
                     return PostListResponse.builder()
                             .title(post.getTitle())
-                            .thumbnail(thumbnailLink)
+                            .thumbnail(thumbnail.getThumbnailUrl())
                             .nickname(user.getNickname())
                             .email(user.getEmail())
                             .profile(user.getProfileImg())
