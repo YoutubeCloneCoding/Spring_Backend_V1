@@ -28,9 +28,6 @@ spring:
   profiles:
     include: oauth
 
-  config:
-    import: classpath:/env.yml
-
   servlet:
     multipart:
       max-file-size: 10MB
