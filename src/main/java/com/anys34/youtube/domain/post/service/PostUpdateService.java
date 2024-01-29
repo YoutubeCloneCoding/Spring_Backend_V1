@@ -11,6 +11,8 @@ import com.anys34.youtube.domain.thumbnail.domain.Thumbnail;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.infrastructure.s3.service.S3Service;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,15 @@ public class PostUpdateService {
     private final S3Service s3Service;
 
     @Transactional
-    public void execute(PostSaveRequest postSaveRequest, MultipartFile file) {
+    public void execute(String postSaveRequestJson, MultipartFile file) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        PostSaveRequest postSaveRequest;
+        try {
+            postSaveRequest = objectMapper.readValue(postSaveRequestJson, PostSaveRequest.class);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+
         Post post = postRepository.findById(Long.valueOf(postSaveRequest.getId()))
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
         User user = userFacade.getCurrentUser();

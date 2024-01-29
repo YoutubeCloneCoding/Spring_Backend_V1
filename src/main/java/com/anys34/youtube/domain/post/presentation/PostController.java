@@ -21,7 +21,7 @@ public class PostController {
     private final PostListService postListService;
 
     @PostMapping("/api/save")
-    public void update( @RequestParam("request") PostSaveRequest postSaveRequest,
+    public void update( @RequestParam("request") String postSaveRequest,
                         @RequestParam("file") MultipartFile file) {
         postUpdateService.execute(postSaveRequest, file);
     }
