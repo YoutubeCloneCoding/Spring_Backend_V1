@@ -21,18 +21,9 @@ public class PostController {
     private final PostListService postListService;
 
     @PostMapping("/api/save")
-    public void update( @RequestParam("id") Long id,
-                        @RequestParam("title") String title,
-                        @RequestParam("contents") String contents,
-                        @RequestParam("publicScope") PublicScope publicScope,
-                        @RequestParam("thumbnail") MultipartFile thumbnail) {
-        postUpdateService.execute(PostSaveRequest.builder()
-                .id(id)
-                .title(title)
-                .contents(contents)
-                .publicScope(publicScope)
-                .thumbnail(thumbnail)
-                .build());
+    public void update( @RequestParam("request") PostSaveRequest postSaveRequest,
+                        @RequestParam("file") MultipartFile file) {
+        postUpdateService.execute(postSaveRequest, file);
     }
 
     @GetMapping("/list")

@@ -25,7 +25,7 @@ public class PostUpdateService {
     private final S3Service s3Service;
 
     @Transactional
-    public void execute(PostSaveRequest postSaveRequest) {
+    public void execute(PostSaveRequest postSaveRequest, MultipartFile file) {
         Post post = postRepository.findById(postSaveRequest.getId())
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
         User user = userFacade.getCurrentUser();
@@ -34,10 +34,8 @@ public class PostUpdateService {
             throw UserNotMatchException.EXCEPTION;
 
         UUID uuid = UUID.randomUUID();
-        MultipartFile file = postSaveRequest.getThumbnail();
 
         String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.image, uuid);
-
 
         Thumbnail thumbnail = Thumbnail.builder()
                 .thumbnailUrl(fileUrl)
