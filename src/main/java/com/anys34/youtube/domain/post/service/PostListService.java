@@ -62,6 +62,7 @@ public class PostListService {
                     return PostListResponse.builder()
                             .title(post.getTitle())
                             .thumbnail(thumbnail.getThumbnailUrl())
+                            .video(video.getVideoUrl())
                             .nickname(user.getNickname())
                             .email(user.getEmail())
                             .profile(user.getProfileImg())

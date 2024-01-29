@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class PostListResponse {
     private String title;
     private String thumbnail;
+    private String video;
     private String profile;
     private String nickname;
     private String email;
@@ -18,9 +19,10 @@ public class PostListResponse {
     private LocalDateTime createdAt;
 
     @Builder
-    public PostListResponse(String title, String thumbnail, String profile, String nickname, String email, String link, LocalDateTime createdAt) {
+    public PostListResponse(String title, String thumbnail, String video, String profile, String nickname, String email, String link, LocalDateTime createdAt) {
         this.title = title;
         this.thumbnail = thumbnail;
+        this.video = video;
         this.profile = profile;
         this.nickname = nickname;
         this.email = email;
