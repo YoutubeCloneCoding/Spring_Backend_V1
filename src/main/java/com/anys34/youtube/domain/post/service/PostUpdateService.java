@@ -1,8 +1,9 @@
 package com.anys34.youtube.domain.post.service;
 
-import com.anys34.youtube.domain.post.domain.type.FileType;
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
+import com.anys34.youtube.domain.post.domain.type.FileType;
+import com.anys34.youtube.domain.post.domain.type.PublicScope;
 import com.anys34.youtube.domain.post.exception.PostNotFoundException;
 import com.anys34.youtube.domain.post.exception.UserNotMatchException;
 import com.anys34.youtube.domain.post.presentation.dto.req.PostSaveRequest;
@@ -26,7 +27,7 @@ public class PostUpdateService {
 
     @Transactional
     public void execute(PostSaveRequest postSaveRequest, MultipartFile file) {
-        Post post = postRepository.findById(postSaveRequest.getId())
+        Post post = postRepository.findById(Long.valueOf(postSaveRequest.getId()))
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
         User user = userFacade.getCurrentUser();
 
@@ -42,7 +43,7 @@ public class PostUpdateService {
                 .uuid(uuid)
                 .build();
 
-        post.update(postSaveRequest.getTitle(), postSaveRequest.getContents(), postSaveRequest.getPublicScope(), thumbnail);
+        post.update(postSaveRequest.getTitle(), postSaveRequest.getContents(), PublicScope.valueOf(postSaveRequest.getPublicScope()), thumbnail);
         thumbnail.updatePost(post);
     }
 }
