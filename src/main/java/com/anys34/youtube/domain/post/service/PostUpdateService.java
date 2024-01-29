@@ -44,7 +44,5 @@ public class PostUpdateService {
 
         post.update(postSaveRequest.getTitle(), postSaveRequest.getContents(), postSaveRequest.getPublicScope(), thumbnail);
         thumbnail.updatePost(post);
-
-        postRepository.save(post);
     }
 }
