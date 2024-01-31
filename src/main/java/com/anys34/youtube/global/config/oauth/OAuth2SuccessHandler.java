@@ -20,7 +20,7 @@ import java.time.Duration;
 @RequiredArgsConstructor
 @Component
 public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
-    public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(14);
+    public static final Duration REFRESH_TOKEN_DURATION = Duration.ofDays(30);
     public static final Duration ACCESS_TOKEN_DURATION = Duration.ofDays(1);
     public static final String REDIRECT_PATH = "http://localhost:3000";
 
