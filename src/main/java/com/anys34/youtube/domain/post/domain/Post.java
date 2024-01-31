@@ -6,13 +6,10 @@ import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.video.domain.Video;
 import com.anys34.youtube.global.entity.BaseTimeEntity;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Post extends BaseTimeEntity {
     @Id
