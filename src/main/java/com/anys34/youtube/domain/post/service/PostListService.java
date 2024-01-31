@@ -27,7 +27,6 @@ public class PostListService {
     private final PostRepository postRepository;
     private final ThumbnailRepository thumbnailRepository;
     private final VideoRepository videoRepository;
-    private final UserRepository userRepository;
     private final UserFacade userFacade;
 
     @Transactional
