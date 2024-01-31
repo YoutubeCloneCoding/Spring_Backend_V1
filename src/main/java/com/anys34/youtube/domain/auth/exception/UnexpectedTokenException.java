@@ -1,4 +1,4 @@
-package com.anys34.youtube.domain.refreshToken.exception;
+package com.anys34.youtube.domain.auth.exception;
 
 import com.anys34.youtube.global.config.error.exception.BusinessException;
 import com.anys34.youtube.global.config.error.exception.ErrorCode;

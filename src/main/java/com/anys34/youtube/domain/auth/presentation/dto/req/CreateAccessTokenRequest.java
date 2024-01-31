@@ -1,7 +1,6 @@
-package com.anys34.youtube.domain.refreshToken.presentation.dto.req;
+package com.anys34.youtube.domain.auth.presentation.dto.req;
 
 import lombok.Getter;
-import lombok.Setter;
 
 @Getter
 public class CreateAccessTokenRequest {

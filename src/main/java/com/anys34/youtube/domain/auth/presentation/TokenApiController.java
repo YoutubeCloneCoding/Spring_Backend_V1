@@ -1,8 +1,8 @@
-package com.anys34.youtube.domain.refreshToken.presentation;
+package com.anys34.youtube.domain.auth.presentation;
 
-import com.anys34.youtube.domain.refreshToken.presentation.dto.req.CreateAccessTokenRequest;
-import com.anys34.youtube.domain.refreshToken.presentation.dto.res.CreateAccessTokenResponse;
-import com.anys34.youtube.domain.refreshToken.service.CreateNewAccessToken;
+import com.anys34.youtube.domain.auth.presentation.dto.req.CreateAccessTokenRequest;
+import com.anys34.youtube.domain.auth.presentation.dto.res.CreateAccessTokenResponse;
+import com.anys34.youtube.domain.auth.service.CreateNewAccessToken;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;

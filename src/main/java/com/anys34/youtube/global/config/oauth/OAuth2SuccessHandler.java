@@ -1,7 +1,7 @@
 package com.anys34.youtube.global.config.oauth;
 
-import com.anys34.youtube.domain.refreshToken.domain.RefreshToken;
-import com.anys34.youtube.domain.refreshToken.domain.repository.RefreshTokenRepository;
+import com.anys34.youtube.domain.auth.domain.RefreshToken;
+import com.anys34.youtube.domain.auth.domain.repository.RefreshTokenRepository;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
@@ -40,7 +40,7 @@ public class OAuth2SuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
     }
 
     private void saveRefreshToken(Long userId, String newRefreshToken) {
-        RefreshToken refreshToken = refreshTokenRepository.findByUserId(userId)
+        RefreshToken refreshToken = refreshTokenRepository.findByEmail(userId)
                 .map(entity -> entity.update(newRefreshToken))
                 .orElse(new RefreshToken(userId, newRefreshToken));
         refreshTokenRepository.save(refreshToken);

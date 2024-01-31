@@ -1,6 +1,6 @@
 package com.anys34.youtube.global.config;
 
-import com.anys34.youtube.domain.refreshToken.domain.repository.RefreshTokenRepository;
+import com.anys34.youtube.domain.auth.domain.repository.RefreshTokenRepository;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
 import com.anys34.youtube.global.config.oauth.CustomAuthenticationEntryPoint;

@@ -1,7 +1,7 @@
-package com.anys34.youtube.domain.refreshToken.service;
+package com.anys34.youtube.domain.auth.service;
 
-import com.anys34.youtube.domain.refreshToken.domain.repository.RefreshTokenRepository;
-import com.anys34.youtube.domain.refreshToken.exception.UnexpectedTokenException;
+import com.anys34.youtube.domain.auth.domain.repository.RefreshTokenRepository;
+import com.anys34.youtube.domain.auth.exception.UnexpectedTokenException;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.service.UserIdFindService;
 import com.anys34.youtube.global.config.jwt.TokenProvider;
@@ -24,7 +24,7 @@ public class CreateNewAccessToken {
             throw UnexpectedTokenException.EXCEPTION;
 
         Long userId = refreshTokenRepository.findByRefreshToken(refreshToken)
-                .orElseThrow(() -> UnexpectedTokenException.EXCEPTION).getUserId();
+                .orElseThrow(() -> UnexpectedTokenException.EXCEPTION).getEmail();
         User user = userIdFindService.execute(userId);
 
         return tokenProvider.generateToken(user, Duration.ofHours(2));
