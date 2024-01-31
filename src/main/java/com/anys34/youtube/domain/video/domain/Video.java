@@ -2,15 +2,12 @@ package com.anys34.youtube.domain.video.domain;
 
 import com.anys34.youtube.domain.post.domain.Post;
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.UUID;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 public class Video {
     @Id
