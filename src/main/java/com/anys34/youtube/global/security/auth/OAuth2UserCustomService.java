@@ -1,4 +1,4 @@
-package com.anys34.youtube.global.config.oauth;
+package com.anys34.youtube.global.security.auth;
 
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.domain.repository.UserRepository;

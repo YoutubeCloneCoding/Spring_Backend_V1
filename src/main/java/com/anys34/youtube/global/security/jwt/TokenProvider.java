@@ -1,4 +1,4 @@
-package com.anys34.youtube.global.config.jwt;
+package com.anys34.youtube.global.security.jwt;
 
 import com.anys34.youtube.domain.user.domain.User;
 import io.jsonwebtoken.Claims;

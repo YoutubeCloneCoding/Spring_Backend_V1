@@ -1,7 +1,5 @@
-package com.anys34.youtube.domain.user.service;
+package com.anys34.youtube.global.security.principle;
 
-import com.anys34.youtube.domain.user.domain.repository.UserRepository;
-import com.anys34.youtube.domain.user.exception.UserNotFoundException;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class UserDetailService implements UserDetailsService {
+public class AuthDetailsService implements UserDetailsService {
     private final UserFacade userFacade;
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        return userFacade.getUserByEmail(email);
+        return (UserDetails) userFacade.getUserByEmail(email);
     }
 }

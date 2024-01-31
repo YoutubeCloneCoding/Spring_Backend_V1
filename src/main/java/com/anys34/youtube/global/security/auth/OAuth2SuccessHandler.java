@@ -1,10 +1,10 @@
-package com.anys34.youtube.global.config.oauth;
+package com.anys34.youtube.global.security.auth;
 
 import com.anys34.youtube.domain.auth.domain.RefreshToken;
 import com.anys34.youtube.domain.auth.domain.repository.RefreshTokenRepository;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.facade.UserFacade;
-import com.anys34.youtube.global.config.jwt.TokenProvider;
+import com.anys34.youtube.global.security.jwt.TokenProvider;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

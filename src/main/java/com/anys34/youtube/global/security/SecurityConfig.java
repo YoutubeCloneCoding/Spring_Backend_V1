@@ -1,11 +1,11 @@
-package com.anys34.youtube.global.config;
+package com.anys34.youtube.global.security;
 
 import com.anys34.youtube.domain.auth.domain.repository.RefreshTokenRepository;
 import com.anys34.youtube.domain.user.facade.UserFacade;
-import com.anys34.youtube.global.config.jwt.TokenProvider;
-import com.anys34.youtube.global.config.oauth.CustomAuthenticationEntryPoint;
-import com.anys34.youtube.global.config.oauth.OAuth2SuccessHandler;
-import com.anys34.youtube.global.config.oauth.OAuth2UserCustomService;
+import com.anys34.youtube.global.security.jwt.TokenProvider;
+import com.anys34.youtube.global.security.auth.CustomAuthenticationEntryPoint;
+import com.anys34.youtube.global.security.auth.OAuth2SuccessHandler;
+import com.anys34.youtube.global.security.auth.OAuth2UserCustomService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -19,7 +19,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @RequiredArgsConstructor
 @Configuration
-public class WebOAuthSecurityConfig {
+public class SecurityConfig {
     private final OAuth2UserCustomService oAuth2UserCustomService;
     private final TokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;

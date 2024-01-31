@@ -1,4 +1,4 @@
-package com.anys34.youtube.global.config.oauth;
+package com.anys34.youtube.global.security.auth;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
