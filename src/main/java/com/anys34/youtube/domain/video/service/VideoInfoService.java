@@ -47,6 +47,7 @@ public class VideoInfoService {
                 .profile(user.getProfileImg())
                 .title(post.getTitle())
                 .contents(post.getContents())
+                .createdAt(post.getCreateDate())
                 .build();
     }
 }
