@@ -29,7 +29,7 @@ public class PostUpdateService {
 
     @Transactional
     public void execute(PostSaveRequest postSaveRequest, MultipartFile file) {
-        Post post = postRepository.findById(Long.valueOf(postSaveRequest.getId()))
+        Post post = postRepository.findById(postSaveRequest.getId())
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
         User user = userFacade.getCurrentUser();
 
