@@ -18,17 +18,13 @@ public class Thumbnail {
     @Column
     private String thumbnailUrl;
 
-    @Column
-    private UUID uuid;
-
     @OneToOne
     @JoinColumn(name = "post_id")
     private Post post;
 
     @Builder
-    public Thumbnail(String thumbnailUrl, UUID uuid) {
+    public Thumbnail(String thumbnailUrl) {
         this.thumbnailUrl = thumbnailUrl;
-        this.uuid = uuid;
     }
 
     public void updatePost(Post post) {
