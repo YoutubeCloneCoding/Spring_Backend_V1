@@ -14,13 +14,10 @@ import lombok.*;
 public class Post extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "post_id", updatable = false)
     private Long id;
 
-    @Column
     private String title;
 
-    @Column
     private String contents;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -33,7 +30,6 @@ public class Post extends BaseTimeEntity {
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Thumbnail thumbnail;
 
-    @Column
     private PublicScope publicScope;
 
     @Builder

@@ -12,10 +12,8 @@ import java.util.UUID;
 public class Thumbnail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "thumbnail_id")
     private Long id;
 
-    @Column
     private String thumbnailUrl;
 
     @OneToOne
