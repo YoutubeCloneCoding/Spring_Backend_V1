@@ -7,5 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ThumbnailRepository extends JpaRepository<Thumbnail, Long> {
-    Optional<Thumbnail> findByPost(Post post);
+    Thumbnail findByPost(Post post);
 }

@@ -32,29 +32,23 @@ public class PostListService {
     @Transactional
     public List<PostListResponse> getList(String email) {
         List<Post> posts = null;
-        System.out.println(userFacade.isLogin());
         if (!userFacade.isLogin() || email == null)
-            posts = postRepository.findAllPublicList()
-                    .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+            posts = postRepository.findAllPublicList();
         else {
             User user = userFacade.getCurrentUser();
             if (email.equals(user.getEmail()))
-                posts = postRepository.findByUserListAll(userFacade.getUserByEmail(user.getEmail()))
-                        .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                posts = postRepository.findByUserListAll(userFacade.getUserByEmail(user.getEmail()));
             else
-                posts = postRepository.findByUserList(userFacade.getUserByEmail(email))
-                        .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                posts = postRepository.findByUserList(userFacade.getUserByEmail(email));
         }
 
         return posts.stream()
                 .map(post -> {
                     User user = userFacade.getUserByEmail(post.getUser().getEmail());
 
-                    Thumbnail thumbnail = thumbnailRepository.findByPost(post)
-                            .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                    Thumbnail thumbnail = thumbnailRepository.findByPost(post);
 
-                    Video video = videoRepository.findByPost(post)
-                            .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                    Video video = videoRepository.findByPost(post);
 
                     String link = video.getUuid().toString();
 

@@ -29,16 +29,13 @@ public class VideoInfoService {
         User user = userFacade.getUserByEmail(email);
         Video video = videoRepository.findByUuid(uuid);
         if (!userFacade.isLogin())
-            post = postRepository.findByPublicUserVideo(user, video)
-                    .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+            post = postRepository.findByPublicUserVideo(user, video);
         else {
             User loginUser = userFacade.getCurrentUser();
             if (loginUser.getEmail().equals(email))
-                post = postRepository.findByAllUserVideo(user, video)
-                        .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                post = postRepository.findByAllUserVideo(user, video);
             else
-                post = postRepository.findByPublicUserVideo(user, video)
-                        .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                post = postRepository.findByPublicUserVideo(user, video);
         }
 
         return VideoReturnResponse.builder()
