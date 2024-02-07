@@ -1,6 +1,7 @@
 package com.anys34.youtube.global.config.error.exception;
 
 import lombok.*;
+import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
 
@@ -10,25 +11,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class ErrorResponse {
     private String message;
-    private Integer status;
-    private LocalDateTime timestamp;
-    private String description;
+    private HttpStatus status;
 
-    public static ErrorResponse of(ErrorCode errorCode, String description) {
+    public static ErrorResponse of(ErrorCode errorCode) {
         return ErrorResponse.builder()
                 .message(errorCode.getMessage())
                 .status(errorCode.getStatus())
-                .timestamp(LocalDateTime.now())
-                .description(description)
-                .build();
-    }
-
-    public static ErrorResponse of(int statusCode, String description) {
-        return ErrorResponse.builder()
-                .message(description)
-                .status(statusCode)
-                .timestamp(LocalDateTime.now())
-                .description(description)
                 .build();
     }
 }
