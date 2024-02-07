@@ -44,7 +44,6 @@ public class VideoUploadService {
         post.updateVideo(video);
 
         Long postId = postRepository.save(post).getId();
-        videoRepository.save(video);
         return ReturnInfoResponse.builder()
                 .id(postId)
                 .videoUrl(fileUrl)
