@@ -5,6 +5,7 @@ import com.anys34.youtube.domain.post.presentation.dto.req.PostSaveRequest;
 import com.anys34.youtube.domain.post.presentation.dto.res.PostListResponse;
 import com.anys34.youtube.domain.post.service.PostListService;
 import com.anys34.youtube.domain.post.service.PostUpdateService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,7 +19,7 @@ public class PostController {
     private final PostListService postListService;
 
     @PostMapping("/api/save")
-    public void update( @RequestPart PostSaveRequest request,
+    public void update( @Valid @RequestPart PostSaveRequest request,
                         @RequestPart MultipartFile file) {
         postUpdateService.execute(request, file);
     }
