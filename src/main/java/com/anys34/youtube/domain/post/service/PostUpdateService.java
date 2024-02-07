@@ -46,11 +46,10 @@ public class PostUpdateService {
 
         UUID uuid = UUID.randomUUID();
 
-        String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.image, uuid);
+        String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.IMAGE, uuid);
 
         Thumbnail thumbnail = Thumbnail.builder()
                 .thumbnailUrl(fileUrl)
-                .uuid(uuid)
                 .build();
 
         post.update(postSaveRequest.getTitle(), postSaveRequest.getContents(), PublicScope.valueOf(postSaveRequest.getPublicScope()), thumbnail);

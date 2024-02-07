@@ -29,7 +29,7 @@ public class VideoUploadService {
         User user = userFacade.getCurrentUser();
         UUID uuid = UUID.randomUUID();
 
-        String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.video, uuid);
+        String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.VIDEO, uuid);
 
         Video video = Video.builder()
                 .videoUrl(fileUrl)
