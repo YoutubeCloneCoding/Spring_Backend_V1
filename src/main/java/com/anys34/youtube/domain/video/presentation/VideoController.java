@@ -17,7 +17,7 @@ public class VideoController {
     private final VideoUploadService videoUploadService;
 
     @PostMapping("/api/upload")
-    public ReturnInfoResponse upload(@RequestParam("file") MultipartFile file) {
+    public ReturnInfoResponse upload(@RequestPart MultipartFile file) {
         return videoUploadService.execute(file);
     }
 
