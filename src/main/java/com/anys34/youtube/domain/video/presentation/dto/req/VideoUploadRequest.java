@@ -13,11 +13,6 @@ public class VideoUploadRequest {
     private MultipartFile video;
 
     public Post toEntity(User user) {
-        return Post.builder()
-                .title("")
-                .contents("")
-                .publicScope(PublicScope.WRITE)
-                .user(user)
-                .build();
+        return new Post(PublicScope.WRITE, user);
     }
 }

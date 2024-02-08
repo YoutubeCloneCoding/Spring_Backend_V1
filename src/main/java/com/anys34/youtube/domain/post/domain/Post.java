@@ -32,11 +32,12 @@ public class Post extends BaseTimeEntity {
 
     private PublicScope publicScope;
 
-    @Builder
-    public Post(String title, String contents, PublicScope publicScope, User user) {
-        this.title = title;
-        this.contents = contents;
+    public Post(PublicScope publicScope, User user) {
         this.publicScope = publicScope;
+        this.user = user;
+    }
+
+    public Post(User user) {
         this.user = user;
     }
 

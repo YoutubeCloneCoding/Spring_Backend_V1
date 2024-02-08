@@ -30,10 +30,7 @@ public class UploadVideoService {
         String videoUrl = s3Service.uploadFile(file, user.getEmail(), FileType.VIDEO, uuid);
 
         Video video = new Video(videoUrl, uuid);
-
-        Post post = Post.builder()
-                .user(user)
-                .build();
+        Post post = new Post(user);
 
         video.updatePost(post);
         post.updateVideo(video);
