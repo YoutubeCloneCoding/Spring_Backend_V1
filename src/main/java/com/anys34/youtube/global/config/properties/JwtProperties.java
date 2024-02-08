@@ -1,4 +1,4 @@
-package com.anys34.youtube.global.security.jwt;
+package com.anys34.youtube.global.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;
