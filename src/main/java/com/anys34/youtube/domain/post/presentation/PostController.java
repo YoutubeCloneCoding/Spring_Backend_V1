@@ -1,6 +1,5 @@
 package com.anys34.youtube.domain.post.presentation;
 
-import com.anys34.youtube.domain.post.domain.type.PublicScope;
 import com.anys34.youtube.domain.post.presentation.dto.req.PostSaveRequest;
 import com.anys34.youtube.domain.post.presentation.dto.res.PostListResponse;
 import com.anys34.youtube.domain.post.service.PostListService;
