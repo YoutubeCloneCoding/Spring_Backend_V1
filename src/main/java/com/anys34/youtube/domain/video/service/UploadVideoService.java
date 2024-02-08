@@ -27,12 +27,9 @@ public class UploadVideoService {
         User user = userFacade.getCurrentUser();
         UUID uuid = UUID.randomUUID();
 
-        String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.VIDEO, uuid);
+        String videoUrl = s3Service.uploadFile(file, user.getEmail(), FileType.VIDEO, uuid);
 
-        Video video = Video.builder()
-                .videoUrl(fileUrl)
-                .uuid(uuid)
-                .build();
+        Video video = new Video(videoUrl, uuid);
 
         Post post = Post.builder()
                 .user(user)
@@ -43,6 +40,6 @@ public class UploadVideoService {
 
         Long postId = postRepository.save(post).getId();
 
-        return new ReturnInfoResponse(postId, fileUrl, uuid);
+        return new ReturnInfoResponse(postId, videoUrl, uuid);
     }
 }

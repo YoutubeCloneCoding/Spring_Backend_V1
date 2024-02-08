@@ -22,7 +22,6 @@ public class Video {
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @Builder
     public Video(String videoUrl, UUID uuid) {
         this.videoUrl = videoUrl;
         this.uuid = uuid;
