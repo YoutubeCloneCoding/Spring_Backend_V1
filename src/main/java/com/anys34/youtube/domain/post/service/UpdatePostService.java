@@ -11,8 +11,6 @@ import com.anys34.youtube.domain.thumbnail.domain.Thumbnail;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.infrastructure.s3.service.S3Service;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,7 +20,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class PostUpdateService {
+public class UpdatePostService {
     private final PostRepository postRepository;
     private final UserFacade userFacade;
     private final S3Service s3Service;

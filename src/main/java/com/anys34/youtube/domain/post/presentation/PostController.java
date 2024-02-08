@@ -2,8 +2,8 @@ package com.anys34.youtube.domain.post.presentation;
 
 import com.anys34.youtube.domain.post.presentation.dto.req.PostSaveRequest;
 import com.anys34.youtube.domain.post.presentation.dto.res.PostListResponse;
-import com.anys34.youtube.domain.post.service.PostListService;
-import com.anys34.youtube.domain.post.service.PostUpdateService;
+import com.anys34.youtube.domain.post.service.ListPostService;
+import com.anys34.youtube.domain.post.service.UpdatePostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +14,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @RestController
 public class PostController {
-    private final PostUpdateService postUpdateService;
-    private final PostListService postListService;
+    private final UpdatePostService postUpdateService;
+    private final ListPostService postListService;
 
     @PostMapping("/api/save")
     public void update( @Valid @RequestPart PostSaveRequest request,

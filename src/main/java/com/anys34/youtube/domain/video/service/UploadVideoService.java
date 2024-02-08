@@ -18,7 +18,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class VideoUploadService {
+public class UploadVideoService {
     private final VideoRepository videoRepository;
     private final PostRepository postRepository;
     private final S3Service s3Service;

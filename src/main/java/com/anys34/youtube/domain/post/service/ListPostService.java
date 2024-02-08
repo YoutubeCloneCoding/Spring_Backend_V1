@@ -2,13 +2,10 @@ package com.anys34.youtube.domain.post.service;
 
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
-import com.anys34.youtube.domain.post.exception.PostNotFoundException;
 import com.anys34.youtube.domain.post.presentation.dto.res.PostListResponse;
 import com.anys34.youtube.domain.thumbnail.domain.Thumbnail;
 import com.anys34.youtube.domain.thumbnail.domain.repository.ThumbnailRepository;
 import com.anys34.youtube.domain.user.domain.User;
-import com.anys34.youtube.domain.user.domain.repository.UserRepository;
-import com.anys34.youtube.domain.user.exception.UserNotFoundException;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.domain.video.domain.Video;
 import com.anys34.youtube.domain.video.domain.repository.VideoRepository;
@@ -23,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class PostListService {
+public class ListPostService {
     private final PostRepository postRepository;
     private final ThumbnailRepository thumbnailRepository;
     private final VideoRepository videoRepository;

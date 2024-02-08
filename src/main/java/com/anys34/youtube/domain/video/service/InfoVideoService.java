@@ -2,7 +2,6 @@ package com.anys34.youtube.domain.video.service;
 
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
-import com.anys34.youtube.domain.post.exception.PostNotFoundException;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.domain.video.domain.Video;
@@ -18,7 +17,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class VideoInfoService {
+public class InfoVideoService {
     private final VideoRepository videoRepository;
     private final PostRepository postRepository;
     private final UserFacade userFacade;
