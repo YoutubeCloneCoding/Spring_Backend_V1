@@ -34,8 +34,8 @@ spring:
       max-request-size: 10MB
 
 jwt:
-  issuer: anyeseong34@gmail.com
-  secret_key: anys34
+  issuer: ${JWT_ISSUER}
+  secret_key: ${JWT_SECRET}
 
 cloud:
   aws:
