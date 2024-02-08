@@ -12,23 +12,24 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.List;
 
 @RequiredArgsConstructor
+@RequestMapping("/post")
 @RestController
 public class PostController {
     private final UpdatePostService postUpdateService;
     private final ListPostService postListService;
 
-    @PostMapping("/api/save")
+    @PostMapping
     public void update( @Valid @RequestPart PostSaveRequest request,
                         @RequestPart MultipartFile file) {
         postUpdateService.execute(request, file);
     }
 
-    @GetMapping("/list")
+    @GetMapping
     public List<PostListResponse> list() {
         return postListService.getList(null);
     }
 
-    @GetMapping("/userList")
+    @GetMapping("/user")
     public List<PostListResponse> userList(@RequestParam("email") String email) {
         return postListService.getList(email);
     }
