@@ -13,10 +13,10 @@ public class RefreshToken {
     @Id
     private String refreshToken;
 
-    private Long email;
+    private Long userId;
 
     public RefreshToken(Long userId, String refreshToken) {
-        this.email = userId;
+        this.userId = userId;
         this.refreshToken = refreshToken;
     }
 

@@ -1,6 +1,9 @@
 package com.anys34.youtube.domain.post.presentation.dto.res;
 
-import lombok.Builder;
+import com.anys34.youtube.domain.post.domain.Post;
+import com.anys34.youtube.domain.thumbnail.domain.Thumbnail;
+import com.anys34.youtube.domain.user.domain.User;
+import com.anys34.youtube.domain.video.domain.Video;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,15 +21,14 @@ public class PostListResponse {
     private String link;
     private LocalDateTime createdAt;
 
-    @Builder
-    public PostListResponse(String title, String thumbnail, String video, String profile, String nickname, String email, String link, LocalDateTime createdAt) {
-        this.title = title;
-        this.thumbnail = thumbnail;
-        this.video = video;
-        this.profile = profile;
-        this.nickname = nickname;
-        this.email = email;
+    public PostListResponse(Post post, Thumbnail thumbnail, Video video, User user, String link) {
+        this.title = post.getTitle();
+        this.thumbnail = thumbnail.getThumbnailUrl();
+        this.video = video.getVideoUrl();
+        this.profile = user.getProfileImg();
+        this.nickname = user.getNickname();
+        this.email = user.getEmail();
         this.link = link;
-        this.createdAt = createdAt;
+        this.createdAt = post.getCreateDate();
     }
 }

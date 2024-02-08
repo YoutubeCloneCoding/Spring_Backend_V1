@@ -2,13 +2,10 @@ package com.anys34.youtube.domain.post.service;
 
 import com.anys34.youtube.domain.post.domain.Post;
 import com.anys34.youtube.domain.post.domain.repository.PostRepository;
-import com.anys34.youtube.domain.post.exception.PostNotFoundException;
 import com.anys34.youtube.domain.post.presentation.dto.res.PostListResponse;
 import com.anys34.youtube.domain.thumbnail.domain.Thumbnail;
 import com.anys34.youtube.domain.thumbnail.domain.repository.ThumbnailRepository;
 import com.anys34.youtube.domain.user.domain.User;
-import com.anys34.youtube.domain.user.domain.repository.UserRepository;
-import com.anys34.youtube.domain.user.exception.UserNotFoundException;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.domain.video.domain.Video;
 import com.anys34.youtube.domain.video.domain.repository.VideoRepository;
@@ -23,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 @Slf4j
-public class PostListService {
+public class ListPostService {
     private final PostRepository postRepository;
     private final ThumbnailRepository thumbnailRepository;
     private final VideoRepository videoRepository;
@@ -32,42 +29,27 @@ public class PostListService {
     @Transactional
     public List<PostListResponse> getList(String email) {
         List<Post> posts = null;
-        System.out.println(userFacade.isLogin());
         if (!userFacade.isLogin() || email == null)
-            posts = postRepository.findAllPublicList()
-                    .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+            posts = postRepository.findAllPublicList();
         else {
             User user = userFacade.getCurrentUser();
             if (email.equals(user.getEmail()))
-                posts = postRepository.findByUserListAll(userFacade.getUserByEmail(user.getEmail()))
-                        .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                posts = postRepository.findByUserListAll(userFacade.getUserByEmail(user.getEmail()));
             else
-                posts = postRepository.findByUserList(userFacade.getUserByEmail(email))
-                        .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                posts = postRepository.findByUserList(userFacade.getUserByEmail(email));
         }
 
         return posts.stream()
                 .map(post -> {
                     User user = userFacade.getUserByEmail(post.getUser().getEmail());
 
-                    Thumbnail thumbnail = thumbnailRepository.findByPost(post)
-                            .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                    Thumbnail thumbnail = thumbnailRepository.findByPost(post);
 
-                    Video video = videoRepository.findByPost(post)
-                            .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                    Video video = videoRepository.findByPost(post);
 
                     String link = video.getUuid().toString();
 
-                    return PostListResponse.builder()
-                            .title(post.getTitle())
-                            .thumbnail(thumbnail.getThumbnailUrl())
-                            .video(video.getVideoUrl())
-                            .nickname(user.getNickname())
-                            .email(user.getEmail())
-                            .profile(user.getProfileImg())
-                            .link(link)
-                            .createdAt(post.getCreateDate())
-                            .build();
+                    return new PostListResponse(post, thumbnail, video, user, link);
                 })
                 .collect(Collectors.toList());
     }

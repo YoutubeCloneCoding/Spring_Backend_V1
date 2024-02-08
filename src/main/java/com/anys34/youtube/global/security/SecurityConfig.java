@@ -39,8 +39,9 @@ public class SecurityConfig {
 
         http.cors().and().
                 authorizeRequests()
-                .requestMatchers("/api/token").permitAll()
-                .requestMatchers("/api/**").authenticated()
+                .requestMatchers("/video").authenticated()
+                .requestMatchers("/user").authenticated()
+                .requestMatchers("/post").authenticated()
                 .anyRequest().permitAll();
 
         http.oauth2Login()

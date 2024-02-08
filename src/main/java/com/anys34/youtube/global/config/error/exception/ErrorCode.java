@@ -2,24 +2,25 @@ package com.anys34.youtube.global.config.error.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
 
-    USER_NOT_MATCH(400, "User Not Match"),
-    UNEXPECTED_TOKEN(400, "Unexpected token"),
-    EXPIRED_JWT(401, "Expired Jwt"),
-    INVALID_JWT(401, "Invalid Jwt"),
-    INVALID_REFRESH_TOKEN(401, "Invalid Refresh Token"),
+    USER_NOT_MATCH(HttpStatus.BAD_REQUEST, "User Not Match"),
+    UNEXPECTED_TOKEN(HttpStatus.BAD_REQUEST, "Unexpected token"),
+    EXPIRED_JWT(HttpStatus.UNAUTHORIZED, "Expired Jwt"),
+    INVALID_JWT(HttpStatus.UNAUTHORIZED, "Invalid Jwt"),
+    INVALID_REFRESH_TOKEN(HttpStatus.UNAUTHORIZED, "Invalid Refresh Token"),
 
-    USER_NOT_FOUND(404, "User Not Found"),
-    POST_NOT_FOUND(404, "Post Not Found"),
-    REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
-    CONTENT_TYPE_NOT_FOUND(404, "Content Type Not Found"),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "User Not Found"),
+    POST_NOT_FOUND(HttpStatus.NOT_FOUND, "Post Not Found"),
+    REFRESH_TOKEN_NOT_FOUND(HttpStatus.NOT_FOUND, "Refresh Token Not Found"),
+    CONTENT_TYPE_NOT_FOUND(HttpStatus.NOT_FOUND, "Content Type Not Found"),
 
-    INTERNAL_SERVER_ERROR(500, "Internal Server Error");
+    INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal Server Error");
 
-    private final int status;
+    private final HttpStatus status;
     private final String message;
 }

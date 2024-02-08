@@ -11,8 +11,6 @@ import com.anys34.youtube.domain.thumbnail.domain.Thumbnail;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.facade.UserFacade;
 import com.anys34.youtube.infrastructure.s3.service.S3Service;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,22 +20,14 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Service
-public class PostUpdateService {
+public class UpdatePostService {
     private final PostRepository postRepository;
     private final UserFacade userFacade;
     private final S3Service s3Service;
 
     @Transactional
-    public void execute(String postSaveRequestJson, MultipartFile file) {
-        ObjectMapper objectMapper = new ObjectMapper();
-        PostSaveRequest postSaveRequest;
-        try {
-            postSaveRequest = objectMapper.readValue(postSaveRequestJson, PostSaveRequest.class);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
-        }
-
-        Post post = postRepository.findById(Long.valueOf(postSaveRequest.getId()))
+    public void execute(PostSaveRequest postSaveRequest, MultipartFile file) {
+        Post post = postRepository.findById(postSaveRequest.getId())
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
         User user = userFacade.getCurrentUser();
 
@@ -46,11 +36,10 @@ public class PostUpdateService {
 
         UUID uuid = UUID.randomUUID();
 
-        String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.image, uuid);
+        String fileUrl = s3Service.uploadFile(file, user.getEmail(), FileType.IMAGE, uuid);
 
         Thumbnail thumbnail = Thumbnail.builder()
                 .thumbnailUrl(fileUrl)
-                .uuid(uuid)
                 .build();
 
         post.update(postSaveRequest.getTitle(), postSaveRequest.getContents(), PublicScope.valueOf(postSaveRequest.getPublicScope()), thumbnail);
