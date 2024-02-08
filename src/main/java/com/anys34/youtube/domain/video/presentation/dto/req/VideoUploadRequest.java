@@ -16,7 +16,7 @@ public class VideoUploadRequest {
         return Post.builder()
                 .title("")
                 .contents("")
-                .publicScope(PublicScope.PRIVATE)
+                .publicScope(PublicScope.WRITE)
                 .user(user)
                 .build();
     }
