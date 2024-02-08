@@ -49,16 +49,7 @@ public class ListPostService {
 
                     String link = video.getUuid().toString();
 
-                    return PostListResponse.builder()
-                            .title(post.getTitle())
-                            .thumbnail(thumbnail.getThumbnailUrl())
-                            .video(video.getVideoUrl())
-                            .nickname(user.getNickname())
-                            .email(user.getEmail())
-                            .profile(user.getProfileImg())
-                            .link(link)
-                            .createdAt(post.getCreateDate())
-                            .build();
+                    return new PostListResponse(post, thumbnail, video, user, link);
                 })
                 .collect(Collectors.toList());
     }

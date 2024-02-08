@@ -1,6 +1,7 @@
 package com.anys34.youtube.domain.video.presentation.dto.res;
 
-import lombok.Builder;
+import com.anys34.youtube.domain.post.domain.Post;
+import com.anys34.youtube.domain.user.domain.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,13 +17,12 @@ public class VideoReturnResponse {
     private String contents;
     private LocalDateTime createdAt;
 
-    @Builder
-    public VideoReturnResponse(String videoLink, String nickname, String profile, String title, String contents, LocalDateTime createdAt) {
-        this.videoLink = videoLink;
-        this.nickname = nickname;
-        this.profile = profile;
-        this.title = title;
-        this.contents = contents;
-        this.createdAt = createdAt;
+    public VideoReturnResponse(Post post, User user) {
+        this.videoLink = post.getVideo().getVideoUrl();
+        this.nickname = user.getNickname();
+        this.profile = user.getProfileImg();
+        this.title = post.getTitle();
+        this.contents = post.getContents();
+        this.createdAt = post.getCreateDate();
     }
 }

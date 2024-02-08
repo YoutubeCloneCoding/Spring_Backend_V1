@@ -37,13 +37,6 @@ public class InfoVideoService {
                 post = postRepository.findByPublicUserVideo(user, video);
         }
 
-        return VideoReturnResponse.builder()
-                .videoLink(post.getVideo().getVideoUrl())
-                .nickname(user.getNickname())
-                .profile(user.getProfileImg())
-                .title(post.getTitle())
-                .contents(post.getContents())
-                .createdAt(post.getCreateDate())
-                .build();
+        return new VideoReturnResponse(post, user);
     }
 }
