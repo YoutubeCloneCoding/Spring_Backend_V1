@@ -24,7 +24,7 @@ public class CreateNewAccessToken {
         if(!tokenProvider.validToken(refreshToken))
             throw UnexpectedTokenException.EXCEPTION;
 
-        Long userId = refreshTokenRepository.findByRefreshToken(refreshToken)
+        Long userId = refreshTokenRepository.findById(refreshToken)
                 .orElseThrow(() -> UnexpectedTokenException.EXCEPTION).getEmail();
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> UserNotFoundException.EXCEPTION);
