@@ -2,11 +2,9 @@ package com.anys34.youtube.domain.post.presentation.dto.req;
 
 import com.anys34.youtube.domain.post.domain.type.PublicScope;
 import com.anys34.youtube.global.customInterface.EnumValue;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -14,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostSaveRequest {
-    @Min(1)
+    @Size(min = 1)
     @NotNull(message = "id가 비어있습니다.")
     private Long id;
     @NotNull(message = "title이 비어있습니다.")
