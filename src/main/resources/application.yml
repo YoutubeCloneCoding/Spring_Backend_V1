@@ -37,8 +37,11 @@ auth:
     redirect-url: ${GOOGLE_REDIRECT}
 
 jwt:
-  issuer: ${JWT_ISSUER}
-  secret_key: ${JWT_SECRET}
+  refresh-time: 2592000000 # 30일
+  access-time: 3600000 # 1시간
+  prefix: Bearer
+  header: Authorization
+  secret-key: ${JWT_SECRET}
 
 cloud:
   aws:
