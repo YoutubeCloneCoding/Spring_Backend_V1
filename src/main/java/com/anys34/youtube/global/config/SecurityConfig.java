@@ -1,4 +1,4 @@
-package com.anys34.youtube.global.security;
+package com.anys34.youtube.global.config;
 
 import com.anys34.youtube.global.security.jwt.JwtTokenFilter;
 import com.anys34.youtube.global.security.jwt.JwtTokenProvider;
