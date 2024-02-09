@@ -1,10 +1,10 @@
-package com.anys34.youtube.infrastructure.s3.config;
+package com.anys34.youtube.global.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.anys34.youtube.infrastructure.s3.config.properties.S3Properties;
+import com.anys34.youtube.global.config.properties.S3Properties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
