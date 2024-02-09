@@ -1,6 +1,7 @@
 package com.anys34.youtube.domain.auth.domain;
 
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -11,17 +12,13 @@ import org.springframework.data.redis.core.RedisHash;
 @RedisHash(value = "refreshToken", timeToLive = 2592000L)
 public class RefreshToken {
     @Id
-    private String refreshToken;
+    private String token;
 
-    private Long userId;
+    private String email;
 
-    public RefreshToken(Long userId, String refreshToken) {
-        this.userId = userId;
-        this.refreshToken = refreshToken;
-    }
-
-    public RefreshToken update(String newRefreshToken) {
-        this.refreshToken = newRefreshToken;
-        return this;
+    @Builder
+    public RefreshToken(String token, String email) {
+        this.token = token;
+        this.email = email;
     }
 }
