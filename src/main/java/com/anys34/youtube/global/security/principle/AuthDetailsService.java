@@ -13,6 +13,6 @@ public class AuthDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) {
-        return (UserDetails) userFacade.getUserByEmail(email);
+        return new AuthDetails(userFacade.getUserByEmail(email));
     }
 }
