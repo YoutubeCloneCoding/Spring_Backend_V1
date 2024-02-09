@@ -25,9 +25,6 @@ spring:
       host: ${REDIS_HOST}
       port: ${REDIS_PORT}
 
-  profiles:
-    include: oauth
-
   servlet:
     multipart:
       max-file-size: 10MB
