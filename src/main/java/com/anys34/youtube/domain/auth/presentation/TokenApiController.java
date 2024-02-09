@@ -2,9 +2,9 @@ package com.anys34.youtube.domain.auth.presentation;
 
 import com.anys34.youtube.domain.auth.presentation.dto.req.AccessTokenRequest;
 import com.anys34.youtube.domain.auth.presentation.dto.req.CreateAccessTokenRequest;
-import com.anys34.youtube.domain.auth.presentation.dto.res.CreateAccessTokenResponse;
+import com.anys34.youtube.domain.auth.presentation.dto.res.AccessTokenResponse;
 import com.anys34.youtube.domain.auth.presentation.dto.res.TokenResponse;
-import com.anys34.youtube.domain.auth.service.CreateNewAccessToken;
+import com.anys34.youtube.domain.auth.service.CreateAccessTokenService;
 import com.anys34.youtube.domain.auth.service.GoogleAuthLinkService;
 import com.anys34.youtube.domain.auth.service.GoogleAuthService;
 import jakarta.validation.Valid;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/auth")
 @RestController
 public class TokenApiController {
-    private final CreateNewAccessToken createNewAccessToken;
+    private final CreateAccessTokenService createNewAccessToken;
     private final GoogleAuthLinkService googleAuthLinkService;
     private final GoogleAuthService googleAuthService;
 
@@ -27,13 +27,12 @@ public class TokenApiController {
 
     @PostMapping
     public TokenResponse login(@RequestBody @Valid AccessTokenRequest accessTokenRequest) {
-        return googleAuthService.execute(accessTokenRequest);
+        return googleAuthService.execute(accessTokenRequest.getAccessToken());
     }
 
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping("/token")
-    public CreateAccessTokenResponse createNewAccessToken(@RequestBody @Valid CreateAccessTokenRequest request) {
-        String newAccessToken = createNewAccessToken.execute(request.getRefreshToken());
-        return new CreateAccessTokenResponse(newAccessToken);
+    public AccessTokenResponse createNewAccessToken(@RequestBody @Valid CreateAccessTokenRequest request) {
+        return createNewAccessToken.execute(request.getRefreshToken());
     }
 }
