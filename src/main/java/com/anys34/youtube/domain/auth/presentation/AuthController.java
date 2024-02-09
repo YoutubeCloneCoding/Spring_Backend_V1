@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 @RestController
-public class TokenApiController {
+public class AuthController {
     private final CreateAccessTokenService createNewAccessToken;
     private final GoogleAuthLinkService googleAuthLinkService;
     private final GoogleAuthService googleAuthService;
