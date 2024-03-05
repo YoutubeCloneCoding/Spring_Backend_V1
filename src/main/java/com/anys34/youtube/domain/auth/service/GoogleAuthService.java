@@ -1,6 +1,5 @@
 package com.anys34.youtube.domain.auth.service;
 
-import com.anys34.youtube.domain.auth.presentation.dto.req.AccessTokenRequest;
 import com.anys34.youtube.domain.auth.presentation.dto.res.TokenResponse;
 import com.anys34.youtube.domain.user.domain.User;
 import com.anys34.youtube.domain.user.domain.repository.UserRepository;
